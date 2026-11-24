@@ -54,6 +54,9 @@ section{display:grid;gap:18px}
 .route span{color:var(--muted);display:block;font-size:15px}
 .video{display:grid;gap:10px}
 video{width:100%;max-width:100%;border-radius:12px;border:1px solid var(--line);background:#000;aspect-ratio:16/9}
+.agent{display:grid;gap:10px;background:var(--surface);border:2px solid var(--amber);border-radius:14px;padding:20px}
+.agent a.cta{justify-self:start;background:var(--navy);color:var(--surface);text-decoration:none;font-weight:700;border-radius:10px;padding:8px 18px}
+.agent a.cta:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
 .limits{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:12px;margin:0;padding:0;list-style:none}
 .limits li{border-inline-start:3px solid var(--line);padding:4px 14px;color:var(--muted);font-size:15px}
 .limits b{color:var(--ink)}
@@ -80,6 +83,13 @@ footer{color:var(--muted);font-size:14px;border-top:1px solid var(--line);paddin
       <a class="role" href="bk_oper/home.html"><span class="who">المسؤول العمليّاتي</span><span class="what">يرى مهامه فقط، ويرفع الأدلة وينفّذ الإجراءات التصحيحية.</span><span class="go">الدخول ←</span></a>
       <a class="role" href="bk_aud/home.html"><span class="who">محافظ الحسابات</span><span class="what">قراءة فقط لما يُشارَك معه، دون أي تعديل أو اعتماد.</span><span class="go">الدخول ←</span></a>
     </div>
+  </section>
+
+  <section class="agent" id="agent" aria-labelledby="h-agent">
+    <h2 id="h-agent">وكيل الذكاء الاصطناعي (تجربة)</h2>
+    <p class="lead">يحلّل الوكيل ملف المشتريات الوهمي بأدوات GOS: الأرقام المكررة، وفجوات الترقيم، والفواتير القريبة من سقف الاعتماد، والمبالغ الشاذة. يعرض خطواته ومصادره ودرجة ثقته، ثم يترك القرار للإنسان.</p>
+    <p class="lead" style="font-size:15px">يعمل داخل Claude: يُفتح من حساب Claude مسجّل الدخول.</p>
+    <a class="cta" href="https://claude.ai/artifact/RJ6LCEdhXXzyVW2mxrRQpm" target="_blank" rel="noopener">افتح وكيل GOS ←</a>
   </section>
 
   <section aria-labelledby="h-route">
