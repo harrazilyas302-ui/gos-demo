@@ -75,56 +75,135 @@
 <main>
   
   
+<style>
+  /* لوحة القيادة: ملخص أولاً (مؤشرات)، ثم ما يحتاج تصرفاً، ثم التفاصيل حسب المجال.
+     الحالة تُكتب نصاً ويُضاف لها شريط لوني، فلا يُعتمد على اللون وحده. */
+  .db{--ink:#1c2a3d;--muted:#5b6678;--line:#dfe3ea;--navy:#1f3a5f;--ok:#1f7a45;--ok-bg:#e7f5ec;
+      --warn:#9a5b00;--warn-bg:#fff4dc;--bad:#b42318;--bad-bg:#fdecea;--idle:#8a94a6;--idle-bg:#f1f3f6}
+  .db-head{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .db-head h1{margin:0;font-size:1.5rem;color:var(--ink)}
+  .db-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:.95rem}
+  .db-tools select{border:1px solid var(--line);border-radius:6px;background:#fff}
+  .db-btn{display:inline-block;border:1px solid var(--navy);color:var(--navy);border-radius:6px;padding:4px 12px;text-decoration:none;font-size:.9rem}
+  .db-btn:hover,.db-btn:focus-visible{background:var(--navy);color:#fff}
+  .db a:focus-visible,.db select:focus-visible{outline:3px solid #f0b429;outline-offset:2px}
+  .db .note{margin:0 0 18px}
+  .db-sec{margin:26px 0 10px;font-size:.8rem;font-weight:bold;letter-spacing:.04em;color:var(--muted);
+          display:flex;align-items:center;gap:10px}
+  .db-sec::after{content:"";flex:1;border-top:1px solid var(--line)}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px}
+  .kpi{background:#fff;border:1px solid var(--line);border-inline-start:5px solid var(--idle);border-radius:8px;padding:14px 16px;min-width:0}
+  .kpi.ok{border-inline-start-color:var(--ok)}.kpi.warn{border-inline-start-color:#e0a100}.kpi.bad{border-inline-start-color:var(--bad)}
+  .kpi h2{margin:0 0 6px;font-size:.9rem;color:var(--muted);font-weight:normal}
+  .kpi .v{font-size:1.9rem;font-weight:bold;color:var(--ink);line-height:1.2;font-variant-numeric:tabular-nums}
+  .kpi .v small{font-size:.95rem;font-weight:normal;color:var(--muted)}
+  .kpi .sub{font-size:.85rem;color:var(--muted);margin-top:6px;line-height:1.6}
+  .kpi .empty{font-size:.9rem}
+  .bar{height:8px;background:var(--idle-bg);border-radius:6px;overflow:hidden;margin-top:8px;display:flex}
+  .bar span{display:block;height:100%;background:var(--navy)}
+  .bar .s-high{background:#d9534f}.bar .s-medium{background:#e6a817}.bar .s-low{background:#4f9d69}.bar .s-unrated{background:#c4cad4}
+  .pill{display:inline-block;font-size:.78rem;font-weight:bold;border-radius:999px;padding:1px 10px;white-space:nowrap}
+  .pill.ok{background:var(--ok-bg);color:var(--ok)}.pill.warn{background:var(--warn-bg);color:var(--warn)}
+  .pill.bad{background:var(--bad-bg);color:var(--bad)}.pill.idle{background:var(--idle-bg);color:#4a5465}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px;min-width:0}
+  .panel h2{margin:0 0 10px;font-size:1rem;color:#41506b}
+  .two{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:12px}
+  @media (max-width:820px){.two{grid-template-columns:minmax(0,1fr)}}
+  .att{list-style:none;margin:0;padding:0}
+  .att li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid #eef0f4}
+  .att li:last-child{border-bottom:0}
+  .att a{white-space:nowrap}
+  .dl{margin:8px 0 0;padding:0;list-style:none;font-size:.9rem;line-height:1.9}
+  .dl .note{display:inline;margin:0}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:.88rem;color:var(--muted)}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-inline-end:5px;vertical-align:middle}
+  .hm-wrap{overflow-x:auto}
+  .hm{border-collapse:separate;border-spacing:5px;width:auto}
+  .hm th{font-weight:normal;color:#41506b;font-size:.85rem;padding:2px 8px;text-align:center;border:0}
+  .hm td{width:140px;height:76px;text-align:center;vertical-align:middle;border:0;border-radius:8px}
+  .hm .lv-high{background:#f6cfcb;box-shadow:inset 0 0 0 2px #e3a29b}
+  .hm .lv-medium{background:#fbe8b4;box-shadow:inset 0 0 0 2px #e8cd7c}
+  .hm .lv-low{background:#d6ecd9;box-shadow:inset 0 0 0 2px #a9d2b1}
+  .hm .n{font-size:1.5rem;font-weight:bold;display:block;color:var(--ink)}
+  .hm td.zero .n{color:#9aa3b2;font-weight:normal}
+  .hm small{display:block;color:#333}
+  .stack{display:grid;gap:12px;align-content:start}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{border:1px solid var(--line);border-radius:6px;padding:3px 10px;font-size:.88rem;background:#fafbfc}
+  .chip b{font-variant-numeric:tabular-nums}
+  .db ul.plain{margin:6px 0 0;padding-inline-start:18px;font-size:.9rem}
+</style>
 
-<h1>لوحة القيادة — 2026</h1>
-<form method="get" style="margin-bottom:16px">
-  السنة المالية:
-  <select name="fy" onchange="this.form.submit()">
-    <option value="1" selected>2026</option>
-  </select>
-  
-</form>
+<div class="db">
+
+<div class="db-head">
+  <h1>لوحة القيادة — 2026</h1>
+  <form method="get" class="db-tools">
+    <label for="db-fy" style="display:inline;margin:0">السنة المالية:</label>
+    <select id="db-fy" name="fy" onchange="this.form.submit()">
+      <option value="1" selected>2026</option>
+    </select>
+    
+  </form>
+</div>
 <p class="note">مؤشرات مساعدة محسوبة من بيانات النظام، وليست حكماً مهنياً أو تقرير تدقيق.</p>
 
-<div class="grid">
+
+<div class="kpis" aria-label="المؤشرات الرئيسية">
   
-  <div class="card" style="grid-column:1/-1">
-    <h2>ما يحتاج انتباهك الآن</h2>
-    
-    <table>
-      <tr><td><span class="badge">عاجل</span></td>
-        <td>إجراء متأخر 13 يوماً: اشتراط وصل الاستلام قبل أي دفع</td><td><a href="issues_3.html">افتح</a></td></tr><tr><td><span class="badge">عاجل</span></td>
-        <td>وثيقة متأخرة 5 يوماً: الدفتر الكبير</td><td><a href="pbc.html">افتح</a></td></tr>
-    </table>
-    <p><a href="tasks.html">كل المهام (2)</a></p>
-  </div>
-  
-  
-  <div class="card">
+
+  <section class="kpi warn">
     <h2>الأيام المتبقية للجمعية العامة</h2>
-    <div class="big">40 يوماً</div>
-      <div>الجمعية: 2 يناير، 2027</div>
-      <div>إرسال الوثائق قبل: 18 نوفمبر، 2026
-        <span class="note">— تحتاج تحققاً من النص الرسمي</span></div>
-      <div>تقرير المحافظ قبل: 18 ديسمبر، 2026
-        <span class="note">— تحتاج تحققاً من النص الرسمي</span></div>
+    <div class="v">39 يوماً</div>
+      <ul class="dl">
+        <li>الجمعية: 2 يناير، 2027</li>
+        <li>إرسال الوثائق قبل: 18 نوفمبر، 2026
+          <span class="note">— تحتاج تحققاً من النص الرسمي</span></li>
+        <li>تقرير المحافظ قبل: 18 ديسمبر، 2026
+          <span class="note">— تحتاج تحققاً من النص الرسمي</span></li>
+      </ul>
     
-  </div>
+  </section>
 
-
-  <div class="card">
-    <h2>إجراءاتي المتأخرة</h2>
-    
-    <ul><li>اشتراط وصل الاستلام قبل أي دفع — متأخر 12 يوماً</li></ul>
-  </div>
-  <div class="card">
-    <h2>وثائق PBC المسندة إليّ</h2>
-    
-    <ul><li>G50 — مطلوبة</li><li>تصريحات CNAS/CASNOS — مطلوبة</li><li>الدفتر الكبير — مطلوبة</li></ul>
-  </div>
-
+  
 </div>
 
+
+
+<div class="db-sec">الأولويات</div>
+<section class="panel">
+  <h2>ما يحتاج انتباهك الآن</h2>
+  
+  <ul class="att">
+    <li>
+      <span class="pill bad">عاجل</span>
+      <span>إجراء متأخر 13 يوماً: اشتراط وصل الاستلام قبل أي دفع</span>
+      <a href="issues_3.html">افتح</a></li><li>
+      <span class="pill bad">عاجل</span>
+      <span>وثيقة متأخرة 5 يوماً: الدفتر الكبير</span>
+      <a href="pbc.html">افتح</a></li>
+  </ul>
+  <p style="margin:8px 0 0"><a href="tasks.html">كل المهام (2)</a></p>
+</section>
+
+
+
+<div class="db-sec">مهامي</div>
+<div class="two">
+  <section class="panel">
+    <h2>إجراءاتي المتأخرة</h2>
+    
+    <ul class="att"><li><span class="pill bad">متأخر</span><span>اشتراط وصل الاستلام قبل أي دفع — متأخر 13 يوماً</span><span></span></li></ul>
+  </section>
+  <section class="panel">
+    <h2>وثائق PBC المسندة إليّ</h2>
+    
+    <ul class="att"><li><span class="pill idle">مطلوبة</span><span>G50</span><span></span></li><li><span class="pill idle">مطلوبة</span><span>تصريحات CNAS/CASNOS</span><span></span></li><li><span class="pill idle">مطلوبة</span><span>الدفتر الكبير</span><span></span></li></ul>
+  </section>
+</div>
+
+
+</div>
 
 </main>
 <div id="gd-toast" role="status"></div></body>
