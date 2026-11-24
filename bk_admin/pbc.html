@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>وثائق المحافظ</title>
+<style>
+  body{font-family:Tahoma,Arial,sans-serif;margin:0;background:#f5f6f8;color:#1c1f24}
+  header{background:#1f3a5f;color:#fff;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  header a,header button{color:#fff;background:none;border:0;cursor:pointer;font:inherit;text-decoration:underline}
+  nav a{margin-inline-end:14px}
+  main{max-width:1100px;margin:24px auto;padding:0 16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .card{background:#fff;border:1px solid #d9dde3;border-radius:8px;padding:16px;margin-bottom:16px}
+  .card h2,.card h3{margin:0 0 8px;font-size:1rem;color:#41506b}
+  .big{font-size:1.8rem;font-weight:bold}
+  .empty{color:#6b7280}
+  .note{font-size:.85rem;color:#8a5a00}
+  .badge{display:inline-block;padding:2px 8px;border-radius:4px;border:1px solid #888;margin:2px;font-size:.9rem}
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:start;padding:6px 8px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+  th{color:#41506b;font-size:.9rem}
+  input,select,textarea{font:inherit;padding:4px 6px;max-width:100%}
+  textarea{width:100%;min-height:60px}
+  label{display:block;margin:6px 0 2px;font-size:.9rem}
+  button.primary{background:#1f3a5f;color:#fff;border:0;border-radius:4px;padding:6px 14px;cursor:pointer}
+  .msg{padding:8px 12px;border-radius:6px;margin-bottom:10px;border:1px solid}
+  .msg.success{background:#e8f6ec;border-color:#7cc08e}
+  .msg.error{background:#fdecec;border-color:#e08a8a}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+  details summary{cursor:pointer;color:#1f3a5f}
+  .inline{display:inline}
+</style>
+<script>
+/* نسخة عرض: لا شيء يُرسَل إلى خادم */
+(function(){
+  function toast(msg){var t=document.getElementById('gd-toast');if(!t)return;t.textContent=msg;t.classList.add('on');
+    clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on')},2600);}
+  window.gdToast=toast;
+  HTMLFormElement.prototype.submit=function(){toast('نسخة عرض للتصفح: تغيير السنة والحفظ معطّلان هنا.');};
+  document.addEventListener('submit',function(e){e.preventDefault();toast('نسخة عرض للتصفح: الحفظ معطّل. في المنصة الحقيقية يُحفظ هذا ويُسجَّل في سجل النشاط.');},true);
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-off]');
+    if(a){e.preventDefault();toast(a.getAttribute('data-off'));}},true);
+})();
+</script><style>
+#gd-bar{position:sticky;top:0;z-index:1000;background:#f59e0b;color:#0f2a47;font:700 14px Tahoma,Arial,sans-serif;
+  padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));display:flex;gap:10px 18px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+#gd-bar a{color:#0f2a47}
+#gd-toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);opacity:0;transition:.25s;z-index:1001;
+  background:#0f2a47;color:#fff;font:600 15px Tahoma,Arial,sans-serif;padding:12px 20px;border-radius:10px;max-width:min(560px,calc(100vw - 32px));
+  box-shadow:0 10px 30px rgba(0,0,0,.3);text-align:center;pointer-events:none}
+#gd-toast.on{opacity:1;transform:translateX(-50%)}
+</style></head>
+<body><div id="gd-bar"><span>نسخة عرض تفاعلية · بيانات وهمية · أنت تتصفح بدور: المسيّر</span><a href="../index.html">تغيير الدور ↩</a></div>
+<header>
+  <strong>GOS — الرقابة الداخلية</strong>
+  
+  <nav>
+    <a href="home.html">اللوحة</a>
+    <a href="tasks.html">المهام (15)</a>
+    <a href="build.html">ابنِ منظومتك</a>
+    
+    <a href="setup.html">المؤسسة</a>
+    <a href="cycles.html">الدورات</a>
+    <a href="risks.html">المخاطر والضوابط</a>
+    <a href="tests.html">الاختبارات</a>
+    <a href="reviews.html">المراجعات</a>
+    
+    <a href="issues.html">الملاحظات</a>
+    <a href="pbc.html">وثائق المحافظ</a>
+    <a href="users.html">المستخدمون</a><a href="permissions.html">الصلاحيات</a><a href="activity.html">سجل النشاط</a>
+  </nav>
+  
+  
+  <span>
+    bk_admin (المسيّر (Admin))
+    <a href="../index.html">تغيير الدور</a>
+    
+  </span>
+</header>
+<main>
+  
+  
+<h1>ملف محافظ الحسابات (PBC) — 2026</h1>
+<form method="get">السنة المالية: <select name="fy" onchange="this.form.submit()"><option value="1" selected>2026</option></select>
+  <a href="../pdf/pbc_1_export_pdf.pdf" target="_blank" style="margin-inline-start:16px">تصدير الحزمة (PDF)</a>
+  <a href="#" data-off="تصدير Excel (CSV) يعمل في المنصة الحقيقية فقط." style="margin-inline-start:16px">تصدير القائمة إلى Excel (CSV)</a></form>
+<p class="note">أداة لتنظيم الوثائق المطلوبة؛ لا تحدد قائمة قانونية موحّدة ولا تستبدل حكم المحافظ.</p>
+
+<div class="grid">
+  <div class="card"><h2>الجاهزية</h2>
+    <div class="big">37%</div>
+    <div>مقدّمة: 4 · مقبولة داخلياً: 3 · من 19</div></div>
+  <div class="card"><h2>الآجال</h2>
+    
+    <div>الجمعية: 2 يناير، 2027 (40 يوماً)</div>
+    <div>إرسال الوثائق قبل: 18 نوفمبر، 2026 <span class="note">— تحتاج تحققاً من النص الرسمي</span></div>
+    <div>تقرير المحافظ قبل: 18 ديسمبر، 2026 <span class="note">— تحتاج تحققاً من النص الرسمي</span></div></div>
+</div>
+
+
+
+
+<div class="card"><h2>ملف القبول</h2>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>محضر التعيين</strong>
+    <div>الحالة: <span class="badge">مقبولة داخلياً</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="1">
+      <select name="status"><option value="required" >مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" selected>مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="1">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="1">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>رسالة المهمة الموقّعة</strong>
+    <div>الحالة: <span class="badge">مقبولة داخلياً</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="2">
+      <select name="status"><option value="required" >مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" selected>مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="2">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="2">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>ترخيص الاطلاع على الوثائق</strong>
+    <div>الحالة: <span class="badge">مقبولة داخلياً</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="3">
+      <select name="status"><option value="required" >مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" selected>مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="3">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="3">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+</div>
+
+<div class="card"><h2>الملف الدائم</h2>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>القانون الأساسي</strong>
+    <div>الحالة: <span class="badge">مقدّمة</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="4">
+      <select name="status"><option value="required" >مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" selected>مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="4">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="4">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>السجل التجاري</strong>
+    <div>الحالة: <span class="badge">مقدّمة</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="5">
+      <select name="status"><option value="required" >مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" selected>مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="5">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="5">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>قائمة الشركاء</strong>
+    <div>الحالة: <span class="badge">مقدّمة</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="6">
+      <select name="status"><option value="required" >مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" selected>مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="6">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="6">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>العقود المهمة</strong>
+    <div>الحالة: <span class="badge">مقدّمة</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="7">
+      <select name="status"><option value="required" >مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" selected>مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="7">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="7">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>دليل الإجراءات</strong>
+    <div>الحالة: <span class="badge">قيد التحضير</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="8">
+      <select name="status"><option value="required" >مطلوبة</option><option value="preparing" selected>قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="8">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="8">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>المخطط المحاسبي</strong>
+    <div>الحالة: <span class="badge">قيد التحضير</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="9">
+      <select name="status"><option value="required" >مطلوبة</option><option value="preparing" selected>قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="9">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="9">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+</div>
+
+<div class="card"><h2>الملف السنوي</h2>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>القوائم المالية SCF</strong>
+    <div>الحالة: <span class="badge">تحتاج تصحيحاً</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="10">
+      <select name="status"><option value="required" >مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" selected>تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="10">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="10">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>محاضر الجمعيات</strong>
+    <div>الحالة: <span class="badge">غير منطبقة</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="11">
+      <select name="status"><option value="required" >مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" selected>غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="11">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="11">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>تقرير التسيير</strong>
+    <div>الحالة: <span class="badge">غير منطبقة</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="12">
+      <select name="status"><option value="required" >مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" selected>غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="12">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="12">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>تقارير المحافظ السابقة</strong>
+    <div>الحالة: <span class="badge">مطلوبة</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="13">
+      <select name="status"><option value="required" selected>مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="13">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="13">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>كشوف البنك</strong>
+    <div>الحالة: <span class="badge">مطلوبة</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="14">
+      <select name="status"><option value="required" selected>مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="14">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="14">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+</div>
+
+<div class="card"><h2>ما قبل الإقفال</h2>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>محضر الجرد</strong>
+    <div>الحالة: <span class="badge">مطلوبة</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="15">
+      <select name="status"><option value="required" selected>مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="15">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="15">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>محضر الصندوق</strong>
+    <div>الحالة: <span class="badge">مطلوبة</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="16">
+      <select name="status"><option value="required" selected>مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="16">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="16">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>التقاربات البنكية</strong>
+    <div>الحالة: <span class="badge">مطلوبة</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="17">
+      <select name="status"><option value="required" selected>مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="17">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="17">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>تبرير الأرصدة القديمة (مثل 455)</strong>
+    <div>الحالة: <span class="badge">مطلوبة</span> · المسؤول: — · الأجل: —</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="18">
+      <select name="status"><option value="required" selected>مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="18">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" >bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value=""></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="18">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+</div>
+
+<div class="card"><h2>جبائي واجتماعي</h2>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>G50</strong> <span class="badge">يحتاج تأكيد الانطباق</span>
+    <div>الحالة: <span class="badge">مطلوبة</span> · المسؤول: bk_oper · الأجل: 8 ديسمبر، 2026</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="19">
+      <select name="status"><option value="required" selected>مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="19">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" selected>bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value="2026-12-08"></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="19">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>تصريحات CNAS/CASNOS</strong> <span class="badge">يحتاج تأكيد الانطباق</span>
+    <div>الحالة: <span class="badge">مطلوبة</span> · المسؤول: bk_oper · الأجل: 8 ديسمبر، 2026</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="20">
+      <select name="status"><option value="required" selected>مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="20">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" selected>bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value="2026-12-08"></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="20">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+  <div style="border-top:1px solid #e5e7eb;padding:8px 0">
+    <strong>الدفتر الكبير</strong> <span class="badge">يحتاج تأكيد الانطباق</span>
+    <div>الحالة: <span class="badge">مطلوبة</span> · المسؤول: bk_oper · الأجل: 19 نوفمبر، 2026</div>
+    <form method="post" class="inline"><input type="hidden" name="do" value="status"><input type="hidden" name="item" value="21">
+      <select name="status"><option value="required" selected>مطلوبة</option><option value="preparing" >قيد التحضير</option><option value="submitted" >مقدّمة</option><option value="needs_fix" >تحتاج تصحيحاً</option><option value="accepted" >مقبولة داخلياً</option><option value="na" >غير منطبقة</option></select>
+      <button class="primary">تحديث</button></form>
+    
+    <details><summary>إسناد وآجال</summary>
+      <form method="post"><input type="hidden" name="do" value="assign"><input type="hidden" name="item" value="21">
+        <div class="row">
+          <div><label>المسؤول</label><select name="owner"><option value="">—</option><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" selected>bk_oper</option></select></div>
+          <div><label>تاريخ الطلب</label><input type="date" name="requested_on" value=""></div>
+          <div><label>الأجل</label><input type="date" name="due_date" value="2026-11-19"></div>
+        </div><button class="primary">حفظ</button></form></details>
+    
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/pbc/">
+      <input type="hidden" name="target_type" value="pbc">
+      <input type="hidden" name="target_id" value="21">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+  </div>
+  
+</div>
+
+
+</main>
+<div id="gd-toast" role="status"></div></body>
+</html>

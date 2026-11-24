@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>اختبار ضابط</title>
+<style>
+  body{font-family:Tahoma,Arial,sans-serif;margin:0;background:#f5f6f8;color:#1c1f24}
+  header{background:#1f3a5f;color:#fff;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  header a,header button{color:#fff;background:none;border:0;cursor:pointer;font:inherit;text-decoration:underline}
+  nav a{margin-inline-end:14px}
+  main{max-width:1100px;margin:24px auto;padding:0 16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .card{background:#fff;border:1px solid #d9dde3;border-radius:8px;padding:16px;margin-bottom:16px}
+  .card h2,.card h3{margin:0 0 8px;font-size:1rem;color:#41506b}
+  .big{font-size:1.8rem;font-weight:bold}
+  .empty{color:#6b7280}
+  .note{font-size:.85rem;color:#8a5a00}
+  .badge{display:inline-block;padding:2px 8px;border-radius:4px;border:1px solid #888;margin:2px;font-size:.9rem}
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:start;padding:6px 8px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+  th{color:#41506b;font-size:.9rem}
+  input,select,textarea{font:inherit;padding:4px 6px;max-width:100%}
+  textarea{width:100%;min-height:60px}
+  label{display:block;margin:6px 0 2px;font-size:.9rem}
+  button.primary{background:#1f3a5f;color:#fff;border:0;border-radius:4px;padding:6px 14px;cursor:pointer}
+  .msg{padding:8px 12px;border-radius:6px;margin-bottom:10px;border:1px solid}
+  .msg.success{background:#e8f6ec;border-color:#7cc08e}
+  .msg.error{background:#fdecec;border-color:#e08a8a}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+  details summary{cursor:pointer;color:#1f3a5f}
+  .inline{display:inline}
+</style>
+<script>
+/* نسخة عرض: لا شيء يُرسَل إلى خادم */
+(function(){
+  function toast(msg){var t=document.getElementById('gd-toast');if(!t)return;t.textContent=msg;t.classList.add('on');
+    clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on')},2600);}
+  window.gdToast=toast;
+  HTMLFormElement.prototype.submit=function(){toast('نسخة عرض للتصفح: تغيير السنة والحفظ معطّلان هنا.');};
+  document.addEventListener('submit',function(e){e.preventDefault();toast('نسخة عرض للتصفح: الحفظ معطّل. في المنصة الحقيقية يُحفظ هذا ويُسجَّل في سجل النشاط.');},true);
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-off]');
+    if(a){e.preventDefault();toast(a.getAttribute('data-off'));}},true);
+})();
+</script><style>
+#gd-bar{position:sticky;top:0;z-index:1000;background:#f59e0b;color:#0f2a47;font:700 14px Tahoma,Arial,sans-serif;
+  padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));display:flex;gap:10px 18px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+#gd-bar a{color:#0f2a47}
+#gd-toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);opacity:0;transition:.25s;z-index:1001;
+  background:#0f2a47;color:#fff;font:600 15px Tahoma,Arial,sans-serif;padding:12px 20px;border-radius:10px;max-width:min(560px,calc(100vw - 32px));
+  box-shadow:0 10px 30px rgba(0,0,0,.3);text-align:center;pointer-events:none}
+#gd-toast.on{opacity:1;transform:translateX(-50%)}
+</style></head>
+<body><div id="gd-bar"><span>نسخة عرض تفاعلية · بيانات وهمية · أنت تتصفح بدور: مسؤول الرقابة</span><a href="../index.html">تغيير الدور ↩</a></div>
+<header>
+  <strong>GOS — الرقابة الداخلية</strong>
+  
+  <nav>
+    <a href="home.html">اللوحة</a>
+    <a href="tasks.html">المهام (11)</a>
+    <a href="build.html">ابنِ منظومتك</a>
+    
+    <a href="setup.html">المؤسسة</a>
+    <a href="cycles.html">الدورات</a>
+    <a href="risks.html">المخاطر والضوابط</a>
+    <a href="tests.html">الاختبارات</a>
+    <a href="reviews.html">المراجعات</a>
+    
+    <a href="issues.html">الملاحظات</a>
+    <a href="pbc.html">وثائق المحافظ</a>
+    
+  </nav>
+  
+  
+  <span>
+    bk_ctrl (مسؤول الرقابة)
+    <a href="../index.html">تغيير الدور</a>
+    
+  </span>
+</header>
+<main>
+  
+  
+<h1>اختبار الضابط</h1>
+<div class="card">
+  <p><strong>جرد فعلي سنوي موثّق ومطابقته مع الدفاتر</strong></p>
+  <p>الفترة: 2026 · تاريخ الاختبار: 20 نوفمبر، 2026 · العينة المخططة: 3 · المعيار: جرد فعلي موثّق</p>
+  <p>النتيجة: <span class="badge">غير حاسم</span></p>
+  <p class="note">استثناءات: 1 من 3 عنصراً مسجَّلاً (حجم العينة المخطط: 3). النتيجة تخص العينة فقط ولا تُعمَّم آلياً.</p>
+  
+  <form method="post" class="inline"><input type="hidden" name="do" value="result">
+    <select name="result"><option value="effective" >فعّال</option><option value="ineffective" >غير فعّال</option><option value="inconclusive" selected>غير حاسم</option></select>
+    <button class="primary">تسجيل النتيجة</button></form>
+  <p>تصميم الضابط: <span class="badge">لم يُقيَّم بعد</span>
+    · الحد المقبول للاستثناءات: <strong>0 (لم يُحدَّد)</strong></p>
+  
+  <form method="post" class="inline"><input type="hidden" name="do" value="tolerance">
+    <input type="number" name="tolerable_exceptions" min="0" value="" placeholder="الحد المقبول (يُحدَّد قبل الفحص)">
+    <button class="primary">حفظ الحد</button></form>
+  <p class="note">حدّده قبل فحص العينة. الاستثناءات فوقه تمنع «فعّال». أحجام العينة الشائعة حسب دورية الضابط (ممارسة متعارف عليها في المهنة، ليست معياراً ملزماً): سنوي 1، فصلي 2، شهري 2–5، أسبوعي 5–15، يومي 20–40.</p>
+  
+</div>
+<div class="card">
+  <h3>مراجعة الاختبار (توقيع ثانٍ)</h3>
+  
+    <p class="note">لم يُراجع بعد. المراجعة تسقط تلقائياً إن تغيّرت النتيجة أو الحد بعدها.</p>
+    
+  
+</div>
+
+
+
+
+<div class="card"><h3>عناصر العينة</h3>
+  
+  <p><span class="badge">3 عنصراً فُحص بلا دليل مرفق</span> <small>أرفق للعنصر مستند الفاتورة/الوثيقة التي رأيتها ليستطيع غيرك مراجعة فحصك.</small></p>
+  <table><tr><th>المرجع</th><th>النتيجة</th><th>من فحصه ومتى</th><th>ملاحظة</th><th>الدليل</th><th></th></tr>
+  <tr><td>بند 1</td><td><span class="badge">مطابق</span></td>
+    <td>bk_ctrl<br><small>2026-11-24 02:20</small></td>
+    <td>—</td>
+    <td>
+      <span class="badge">بلا دليل</span>
+      <details><summary>إرفاق دليل</summary>
+        <form method="post" action="#" enctype="multipart/form-data">
+          <input type="hidden" name="next" value="/tests/3/"><input type="hidden" name="target_type" value="sample"><input type="hidden" name="target_id" value="10">
+          <input type="file" name="file" required><input name="description" placeholder="الوصف" size="14"><button class="primary">رفع</button></form></details></td>
+    <td>
+      <form method="post" class="inline"><input type="hidden" name="do" value="sample_eval"><input type="hidden" name="sample" value="10">
+        <input name="note" placeholder="ملاحظة" size="14">
+        <button class="primary" name="result" value="ok">مطابق</button>
+        <button class="primary" name="result" value="exception">استثناء</button></form></td></tr><tr><td>بند 2</td><td><span class="badge">مطابق</span></td>
+    <td>bk_ctrl<br><small>2026-11-24 02:20</small></td>
+    <td>—</td>
+    <td>
+      <span class="badge">بلا دليل</span>
+      <details><summary>إرفاق دليل</summary>
+        <form method="post" action="#" enctype="multipart/form-data">
+          <input type="hidden" name="next" value="/tests/3/"><input type="hidden" name="target_type" value="sample"><input type="hidden" name="target_id" value="11">
+          <input type="file" name="file" required><input name="description" placeholder="الوصف" size="14"><button class="primary">رفع</button></form></details></td>
+    <td>
+      <form method="post" class="inline"><input type="hidden" name="do" value="sample_eval"><input type="hidden" name="sample" value="11">
+        <input name="note" placeholder="ملاحظة" size="14">
+        <button class="primary" name="result" value="ok">مطابق</button>
+        <button class="primary" name="result" value="exception">استثناء</button></form></td></tr><tr><td>بند 3</td><td><span class="badge">استثناء</span></td>
+    <td>bk_ctrl<br><small>2026-11-24 02:20</small></td>
+    <td>—</td>
+    <td>
+      <span class="badge">بلا دليل</span>
+      <details><summary>إرفاق دليل</summary>
+        <form method="post" action="#" enctype="multipart/form-data">
+          <input type="hidden" name="next" value="/tests/3/"><input type="hidden" name="target_type" value="sample"><input type="hidden" name="target_id" value="12">
+          <input type="file" name="file" required><input name="description" placeholder="الوصف" size="14"><button class="primary">رفع</button></form></details></td>
+    <td>
+      <form method="post" class="inline"><input type="hidden" name="do" value="sample_eval"><input type="hidden" name="sample" value="12">
+        <input name="note" placeholder="ملاحظة" size="14">
+        <button class="primary" name="result" value="ok">مطابق</button>
+        <button class="primary" name="result" value="exception">استثناء</button></form></td></tr></table>
+  
+  <details style="margin-top:8px"><summary>إضافة عنصر يدوياً</summary>
+    <form method="post"><input type="hidden" name="do" value="sample">
+      <div class="row"><div><label>المرجع (رقم الملف/الفاتورة)</label><input name="reference" required></div>
+      <div><label>النتيجة</label><select name="result"><option value="ok">مطابق</option><option value="exception">استثناء</option></select></div>
+      <div><label>ملاحظة</label><input name="note"></div></div>
+      <p><button class="primary">إضافة</button></p></form></details>
+</div>
+
+<div class="card">
+  <h3>الأدلة المرفقة</h3>
+  <p class="note">الدليل المرفوع «غير مراجع» ولا يُعدّ إثباتاً لصحته حتى يراجعه شخص مخوّل.</p>
+  <div class="empty">لا أدلة مرفقة بعد.</div>
+  
+  <details style="margin-top:8px"><summary>رفع دليل جديد</summary>
+    <form method="post" action="#" enctype="multipart/form-data">
+      <input type="hidden" name="next" value="/tests/3/">
+      <input type="hidden" name="target_type" value="test">
+      <input type="hidden" name="target_id" value="3">
+      <label>الملف (pdf, jpg, png, xlsx, docx)</label><input type="file" name="file" required>
+      <label>الوصف</label><input name="description">
+      <label>الفترة المغطاة</label><input name="period_covered">
+      <button class="primary">رفع</button>
+    </form>
+  </details>
+</div>
+
+<p><a class="primary" href="../pdf/tests_3_report_pdf.pdf" target="_blank">تنزيل التقرير النهائي (PDF)</a>
+  <small class="note">الاختبار والعينة وبذرتها والاستثناءات والأدلة والملاحظات المتولدة.</small></p>
+<p><a href="tests.html">← كل الاختبارات</a></p>
+
+</main>
+<div id="gd-toast" role="status"></div></body>
+</html>

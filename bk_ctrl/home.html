@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لوحة القيادة</title>
+<style>
+  body{font-family:Tahoma,Arial,sans-serif;margin:0;background:#f5f6f8;color:#1c1f24}
+  header{background:#1f3a5f;color:#fff;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  header a,header button{color:#fff;background:none;border:0;cursor:pointer;font:inherit;text-decoration:underline}
+  nav a{margin-inline-end:14px}
+  main{max-width:1100px;margin:24px auto;padding:0 16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .card{background:#fff;border:1px solid #d9dde3;border-radius:8px;padding:16px;margin-bottom:16px}
+  .card h2,.card h3{margin:0 0 8px;font-size:1rem;color:#41506b}
+  .big{font-size:1.8rem;font-weight:bold}
+  .empty{color:#6b7280}
+  .note{font-size:.85rem;color:#8a5a00}
+  .badge{display:inline-block;padding:2px 8px;border-radius:4px;border:1px solid #888;margin:2px;font-size:.9rem}
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:start;padding:6px 8px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+  th{color:#41506b;font-size:.9rem}
+  input,select,textarea{font:inherit;padding:4px 6px;max-width:100%}
+  textarea{width:100%;min-height:60px}
+  label{display:block;margin:6px 0 2px;font-size:.9rem}
+  button.primary{background:#1f3a5f;color:#fff;border:0;border-radius:4px;padding:6px 14px;cursor:pointer}
+  .msg{padding:8px 12px;border-radius:6px;margin-bottom:10px;border:1px solid}
+  .msg.success{background:#e8f6ec;border-color:#7cc08e}
+  .msg.error{background:#fdecec;border-color:#e08a8a}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+  details summary{cursor:pointer;color:#1f3a5f}
+  .inline{display:inline}
+</style>
+<script>
+/* نسخة عرض: لا شيء يُرسَل إلى خادم */
+(function(){
+  function toast(msg){var t=document.getElementById('gd-toast');if(!t)return;t.textContent=msg;t.classList.add('on');
+    clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on')},2600);}
+  window.gdToast=toast;
+  HTMLFormElement.prototype.submit=function(){toast('نسخة عرض للتصفح: تغيير السنة والحفظ معطّلان هنا.');};
+  document.addEventListener('submit',function(e){e.preventDefault();toast('نسخة عرض للتصفح: الحفظ معطّل. في المنصة الحقيقية يُحفظ هذا ويُسجَّل في سجل النشاط.');},true);
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-off]');
+    if(a){e.preventDefault();toast(a.getAttribute('data-off'));}},true);
+})();
+</script><style>
+#gd-bar{position:sticky;top:0;z-index:1000;background:#f59e0b;color:#0f2a47;font:700 14px Tahoma,Arial,sans-serif;
+  padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));display:flex;gap:10px 18px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+#gd-bar a{color:#0f2a47}
+#gd-toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);opacity:0;transition:.25s;z-index:1001;
+  background:#0f2a47;color:#fff;font:600 15px Tahoma,Arial,sans-serif;padding:12px 20px;border-radius:10px;max-width:min(560px,calc(100vw - 32px));
+  box-shadow:0 10px 30px rgba(0,0,0,.3);text-align:center;pointer-events:none}
+#gd-toast.on{opacity:1;transform:translateX(-50%)}
+</style></head>
+<body><div id="gd-bar"><span>نسخة عرض تفاعلية · بيانات وهمية · أنت تتصفح بدور: مسؤول الرقابة</span><a href="../index.html">تغيير الدور ↩</a></div>
+<header>
+  <strong>GOS — الرقابة الداخلية</strong>
+  
+  <nav>
+    <a href="home.html">اللوحة</a>
+    <a href="tasks.html">المهام (11)</a>
+    <a href="build.html">ابنِ منظومتك</a>
+    
+    <a href="setup.html">المؤسسة</a>
+    <a href="cycles.html">الدورات</a>
+    <a href="risks.html">المخاطر والضوابط</a>
+    <a href="tests.html">الاختبارات</a>
+    <a href="reviews.html">المراجعات</a>
+    
+    <a href="issues.html">الملاحظات</a>
+    <a href="pbc.html">وثائق المحافظ</a>
+    
+  </nav>
+  
+  
+  <span>
+    bk_ctrl (مسؤول الرقابة)
+    <a href="../index.html">تغيير الدور</a>
+    
+  </span>
+</header>
+<main>
+  
+  
+
+<h1>لوحة القيادة — 2026</h1>
+<form method="get" style="margin-bottom:16px">
+  السنة المالية:
+  <select name="fy" onchange="this.form.submit()">
+    <option value="1" selected>2026</option>
+  </select>
+  
+  <a href="../pdf/pbc_1_export_pdf.pdf" target="_blank" style="margin-inline-start:16px">تصدير حزمة المحافظ (PDF)</a>
+  
+</form>
+<p class="note">مؤشرات مساعدة محسوبة من بيانات النظام، وليست حكماً مهنياً أو تقرير تدقيق.</p>
+
+<div class="grid">
+  
+  <div class="card" style="grid-column:1/-1">
+    <h2>ما يحتاج انتباهك الآن</h2>
+    
+    <table>
+      <tr><td><span class="badge">عاجل</span></td>
+        <td>تجاوزتَ آخر أجل لإرسال الوثائق (2026-11-18)</td><td><a href="pbc.html">افتح</a></td></tr><tr><td><span class="badge">مهم</span></td>
+        <td>ابنِ منظومتك: أجب عن أسئلة قصيرة فتُقترح الدورات وتُولَّد المهام آلياً</td><td><a href="build.html">افتح</a></td></tr><tr><td><span class="badge">مهم</span></td>
+        <td>أسند منفّذاً لـ 3 ضوابط</td><td><a href="risks.html">افتح</a></td></tr><tr><td><span class="badge">مهم</span></td>
+        <td>1 ضوابط تأخر اختبارها</td><td><a href="tests.html">افتح</a></td></tr><tr><td><span class="badge">مهم</span></td>
+        <td>أضف خطة عمل للملاحظة: تأخر تسجيل مبيعات الصندوق</td><td><a href="issues_2.html">افتح</a></td></tr>
+    </table>
+    <p><a href="tasks.html">كل المهام (11)</a></p>
+  </div>
+  
+  
+  <div class="card">
+    <h2>اكتمال المنظومة</h2>
+    <div class="big">64%</div>
+      <small>الدورات الموصى بها مفعّلة: 3/4 · مخاطر مقيَّمة: 6/6 · ضوابط لها منفّذ: 3/6 · ضوابط لها دورية اختبار: 3/6 · أسئلة QCI مُجاب عنها: 8/11 · قائمة وثائق المحافظ: 1/1 · الآجال القانونية مُتحقَّق منها: 0/1</small>
+  </div>
+  
+  <div class="card">
+    <h2>الأيام المتبقية للجمعية العامة</h2>
+    <div class="big">40 يوماً</div>
+      <div>الجمعية: 2 يناير، 2027</div>
+      <div>إرسال الوثائق قبل: 18 نوفمبر، 2026
+        <span class="note">— تحتاج تحققاً من النص الرسمي</span></div>
+      <div>تقرير المحافظ قبل: 18 ديسمبر، 2026
+        <span class="note">— تحتاج تحققاً من النص الرسمي</span></div>
+    
+  </div>
+
+
+  <div class="card">
+    <h2>المخاطر حسب المستوى</h2>
+    
+    <span class="badge">مرتفع: 2</span>
+    <span class="badge">متوسط: 3</span>
+    <span class="badge">منخفض: 1</span>
+    <span class="badge">غير مقيَّم: 0</span>
+  </div>
+  <div class="card">
+    <h2>حد تقبّل المخاطر</h2>
+    <div class="big">2</div>
+      <div>خطر فوق الحد (الدرجة أكبر من 4)</div>
+      <ul><li>شراء غير مرخّص</li><li>اختيار مورّد غير موضوعي</li></ul>
+  </div>
+  <div class="card" style="grid-column:1/-1">
+    <h2>خريطة حرارة المخاطر (الاحتمال × الأثر)</h2>
+    
+    <style>
+      .hm{border-collapse:separate;border-spacing:4px;width:auto}
+      .hm th{font-weight:normal;color:#41506b;font-size:.85rem;padding:2px 8px;text-align:center}
+      .hm td{width:150px;height:78px;text-align:center;vertical-align:middle;border:2px solid #555;border-radius:6px}
+      .hm .lv-high{background:#f4c7c3}.hm .lv-medium{background:#fbe5a8}.hm .lv-low{background:#cfe8cf}
+      .hm .n{font-size:1.5rem;font-weight:bold;display:block}
+      .hm small{display:block;color:#333}
+    </style>
+    <table class="hm">
+      <tr><th></th><th colspan="3">الأثر ←</th></tr>
+      <tr><th>الاحتمال ↓</th><th>1</th><th>2</th><th>3</th></tr>
+      
+      <tr><th>3</th>
+        
+        <td class="lv-medium" title="فروق بين الدفاتر والواقع">
+          <span class="n">1</span>
+          <small>متوسط · الدرجة 3</small>
+          
+        </td>
+        
+        <td class="lv-high" title="">
+          <span class="n">0</span>
+          <small>مرتفع · الدرجة 6</small>
+          <small><strong>▲ فوق حد التقبّل</strong></small>
+        </td>
+        
+        <td class="lv-high" title="شراء غير مرخّص">
+          <span class="n">1</span>
+          <small>مرتفع · الدرجة 9</small>
+          <small><strong>▲ فوق حد التقبّل</strong></small>
+        </td>
+        
+      </tr>
+      
+      <tr><th>2</th>
+        
+        <td class="lv-low" title="">
+          <span class="n">0</span>
+          <small>منخفض · الدرجة 2</small>
+          
+        </td>
+        
+        <td class="lv-medium" title="دفع فاتورة لسلعة غير مستلمة أو ملف ناقص">
+          <span class="n">1</span>
+          <small>متوسط · الدرجة 4</small>
+          
+        </td>
+        
+        <td class="lv-high" title="اختيار مورّد غير موضوعي">
+          <span class="n">1</span>
+          <small>مرتفع · الدرجة 6</small>
+          <small><strong>▲ فوق حد التقبّل</strong></small>
+        </td>
+        
+      </tr>
+      
+      <tr><th>1</th>
+        
+        <td class="lv-low" title="خطأ في الرصيد البنكي">
+          <span class="n">1</span>
+          <small>منخفض · الدرجة 1</small>
+          
+        </td>
+        
+        <td class="lv-low" title="">
+          <span class="n">0</span>
+          <small>منخفض · الدرجة 2</small>
+          
+        </td>
+        
+        <td class="lv-medium" title="اختلاس أو فرق في الصندوق">
+          <span class="n">1</span>
+          <small>متوسط · الدرجة 3</small>
+          
+        </td>
+        
+      </tr>
+      
+    </table>
+    <p class="note">يُكتب المستوى والدرجة داخل كل خانة فلا يُعتمد على اللون وحده. الحدود قابلة للضبط وليست معياراً قانونياً.
+      </p>
+    
+  </div>
+  <div class="card">
+    <h2>الضوابط غير المختبرة</h2>
+    <div class="big">2 من 6</div>
+  </div>
+  <div class="card">
+    <h2>ضوابط استحق اختبارها</h2>
+    <div class="big">2 من 3</div>
+      <div>مجدولة الاختبار؛ منها 1 لم تُختبر بعد، وأكبر تأخر 20 يوماً.</div>
+  </div>
+  <div class="card">
+    <h2>الاختبارات غير الفعّالة</h2>
+    <div class="big">1 من 4</div>
+  </div>
+  <div class="card">
+    <h2>الملاحظات حسب الحالة</h2>
+    
+    <span class="badge">مسودة: 1</span><span class="badge">معتمدة: 1</span><span class="badge">قيد التنفيذ: 1</span><span class="badge">مغلقة: 1</span>
+    
+  </div>
+  <div class="card">
+    <h2>الإجراءات المتأخرة</h2>
+    <div class="big">1</div>
+      <div>أكبر تأخر: 12 يوماً</div>
+  </div>
+  <div class="card">
+    <h2>المراجعة الإدارية الدورية</h2>
+    
+      <div>آخر مراجعة: 9 أكتوبر، 2026 <span class="badge">رقابة تعويضية موثّقة</span></div>
+      <div>الموعد التالي: 8 نوفمبر، 2026 (كل 30 يوماً)</div>
+      <div><span class="badge"><strong>متأخرة 15 يوماً</strong></span></div>
+      
+    
+  </div>
+  <div class="card">
+    <h2>جاهزية وثائق المحافظ</h2>
+    
+    <div class="big">37%</div>
+    <div>مقدّمة: 4 · مقبولة داخلياً: 3 · من 19 وثيقة منطبقة</div>
+  </div>
+
+</div>
+
+
+</main>
+<div id="gd-toast" role="status"></div></body>
+</html>

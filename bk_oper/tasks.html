@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المهام</title>
+<style>
+  body{font-family:Tahoma,Arial,sans-serif;margin:0;background:#f5f6f8;color:#1c1f24}
+  header{background:#1f3a5f;color:#fff;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  header a,header button{color:#fff;background:none;border:0;cursor:pointer;font:inherit;text-decoration:underline}
+  nav a{margin-inline-end:14px}
+  main{max-width:1100px;margin:24px auto;padding:0 16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .card{background:#fff;border:1px solid #d9dde3;border-radius:8px;padding:16px;margin-bottom:16px}
+  .card h2,.card h3{margin:0 0 8px;font-size:1rem;color:#41506b}
+  .big{font-size:1.8rem;font-weight:bold}
+  .empty{color:#6b7280}
+  .note{font-size:.85rem;color:#8a5a00}
+  .badge{display:inline-block;padding:2px 8px;border-radius:4px;border:1px solid #888;margin:2px;font-size:.9rem}
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:start;padding:6px 8px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+  th{color:#41506b;font-size:.9rem}
+  input,select,textarea{font:inherit;padding:4px 6px;max-width:100%}
+  textarea{width:100%;min-height:60px}
+  label{display:block;margin:6px 0 2px;font-size:.9rem}
+  button.primary{background:#1f3a5f;color:#fff;border:0;border-radius:4px;padding:6px 14px;cursor:pointer}
+  .msg{padding:8px 12px;border-radius:6px;margin-bottom:10px;border:1px solid}
+  .msg.success{background:#e8f6ec;border-color:#7cc08e}
+  .msg.error{background:#fdecec;border-color:#e08a8a}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+  details summary{cursor:pointer;color:#1f3a5f}
+  .inline{display:inline}
+</style>
+<script>
+/* نسخة عرض: لا شيء يُرسَل إلى خادم */
+(function(){
+  function toast(msg){var t=document.getElementById('gd-toast');if(!t)return;t.textContent=msg;t.classList.add('on');
+    clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on')},2600);}
+  window.gdToast=toast;
+  HTMLFormElement.prototype.submit=function(){toast('نسخة عرض للتصفح: تغيير السنة والحفظ معطّلان هنا.');};
+  document.addEventListener('submit',function(e){e.preventDefault();toast('نسخة عرض للتصفح: الحفظ معطّل. في المنصة الحقيقية يُحفظ هذا ويُسجَّل في سجل النشاط.');},true);
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-off]');
+    if(a){e.preventDefault();toast(a.getAttribute('data-off'));}},true);
+})();
+</script><style>
+#gd-bar{position:sticky;top:0;z-index:1000;background:#f59e0b;color:#0f2a47;font:700 14px Tahoma,Arial,sans-serif;
+  padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));display:flex;gap:10px 18px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+#gd-bar a{color:#0f2a47}
+#gd-toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);opacity:0;transition:.25s;z-index:1001;
+  background:#0f2a47;color:#fff;font:600 15px Tahoma,Arial,sans-serif;padding:12px 20px;border-radius:10px;max-width:min(560px,calc(100vw - 32px));
+  box-shadow:0 10px 30px rgba(0,0,0,.3);text-align:center;pointer-events:none}
+#gd-toast.on{opacity:1;transform:translateX(-50%)}
+</style></head>
+<body><div id="gd-bar"><span>نسخة عرض تفاعلية · بيانات وهمية · أنت تتصفح بدور: المسؤول العمليّاتي</span><a href="../index.html">تغيير الدور ↩</a></div>
+<header>
+  <strong>GOS — الرقابة الداخلية</strong>
+  
+  <nav>
+    <a href="home.html">اللوحة</a>
+    <a href="tasks.html">المهام (2)</a>
+    
+    
+    <a href="issues.html">الملاحظات</a>
+    <a href="pbc.html">وثائق المحافظ</a>
+    
+  </nav>
+  
+  
+  <span>
+    bk_oper (مسؤول عملياتي)
+    <a href="../index.html">تغيير الدور</a>
+    
+  </span>
+</header>
+<main>
+  
+  
+<h1>ما يحتاج انتباهك</h1>
+<p class="note">يحلّل النظام بياناتكم تلقائياً ويولّد المهام ويوجّهها لدورها، وتُغلق المهمة وحدها حين يزول سببها. لا تحتاج لتتبع شيء بنفسك: ما يظهر هنا هو الاستثناء فقط.
+  آخر تحليل: 2026-11-24 05:44.</p>
+<form method="post" style="margin-bottom:12px"><input type="hidden" name="do" value="refresh"><button class="primary">حلّل الآن</button></form>
+
+
+
+
+<div class="card">
+  <h2>ابدأ بهذه (2)</h2>
+  <p class="note">مرتّبة حسب الأهمية. أنجزها أولاً ولا تقلق من الباقي: تظهر التالية حين تنتهي منها.</p>
+  
+<div style="border-top:1px solid #e5e7eb;padding:8px 0">
+  <span class="badge">1</span> <span class="badge">عاجل</span>
+    <strong>إجراء متأخر 13 يوماً: اشتراط وصل الاستلام قبل أي دفع</strong>
+    <span class="badge">الأجل: 11 نوفمبر، 2026</span>
+    <span class="badge">لـ bk_oper</span>
+    <div><small>الملاحظة: دفع فواتير دون وصل استلام. الأجل الأصلي 2026-11-11 (لا يتغير).</small></div>
+
+    
+
+    
+
+    <div style="margin-top:6px">
+      <a href="issues_3.html">افتح</a>
+      <form method="post" class="inline"><input type="hidden" name="do" value="snooze"><input type="hidden" name="task" value="8"><button>أجّل 7 أيام</button></form>
+      <form method="post" class="inline"><input type="hidden" name="do" value="dismiss"><input type="hidden" name="task" value="8"><button>تجاهل</button></form>
+    </div>
+  </div>
+
+<div style="border-top:1px solid #e5e7eb;padding:8px 0">
+  <span class="badge">2</span> <span class="badge">عاجل</span>
+    <strong>وثيقة متأخرة 5 يوماً: الدفتر الكبير</strong>
+    <span class="badge">الأجل: 19 نوفمبر، 2026</span>
+    <span class="badge">لـ bk_oper</span>
+    <div><small>الحالة: مطلوبة.</small></div>
+
+    
+
+    
+
+    <div style="margin-top:6px">
+      <a href="pbc.html">افتح</a>
+      <form method="post" class="inline"><input type="hidden" name="do" value="snooze"><input type="hidden" name="task" value="13"><button>أجّل 7 أيام</button></form>
+      <form method="post" class="inline"><input type="hidden" name="do" value="dismiss"><input type="hidden" name="task" value="13"><button>تجاهل</button></form>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+</main>
+<div id="gd-toast" role="status"></div></body>
+</html>

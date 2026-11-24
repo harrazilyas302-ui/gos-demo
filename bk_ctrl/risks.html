@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المخاطر والضوابط</title>
+<style>
+  body{font-family:Tahoma,Arial,sans-serif;margin:0;background:#f5f6f8;color:#1c1f24}
+  header{background:#1f3a5f;color:#fff;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  header a,header button{color:#fff;background:none;border:0;cursor:pointer;font:inherit;text-decoration:underline}
+  nav a{margin-inline-end:14px}
+  main{max-width:1100px;margin:24px auto;padding:0 16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .card{background:#fff;border:1px solid #d9dde3;border-radius:8px;padding:16px;margin-bottom:16px}
+  .card h2,.card h3{margin:0 0 8px;font-size:1rem;color:#41506b}
+  .big{font-size:1.8rem;font-weight:bold}
+  .empty{color:#6b7280}
+  .note{font-size:.85rem;color:#8a5a00}
+  .badge{display:inline-block;padding:2px 8px;border-radius:4px;border:1px solid #888;margin:2px;font-size:.9rem}
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:start;padding:6px 8px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+  th{color:#41506b;font-size:.9rem}
+  input,select,textarea{font:inherit;padding:4px 6px;max-width:100%}
+  textarea{width:100%;min-height:60px}
+  label{display:block;margin:6px 0 2px;font-size:.9rem}
+  button.primary{background:#1f3a5f;color:#fff;border:0;border-radius:4px;padding:6px 14px;cursor:pointer}
+  .msg{padding:8px 12px;border-radius:6px;margin-bottom:10px;border:1px solid}
+  .msg.success{background:#e8f6ec;border-color:#7cc08e}
+  .msg.error{background:#fdecec;border-color:#e08a8a}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+  details summary{cursor:pointer;color:#1f3a5f}
+  .inline{display:inline}
+</style>
+<script>
+/* نسخة عرض: لا شيء يُرسَل إلى خادم */
+(function(){
+  function toast(msg){var t=document.getElementById('gd-toast');if(!t)return;t.textContent=msg;t.classList.add('on');
+    clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on')},2600);}
+  window.gdToast=toast;
+  HTMLFormElement.prototype.submit=function(){toast('نسخة عرض للتصفح: تغيير السنة والحفظ معطّلان هنا.');};
+  document.addEventListener('submit',function(e){e.preventDefault();toast('نسخة عرض للتصفح: الحفظ معطّل. في المنصة الحقيقية يُحفظ هذا ويُسجَّل في سجل النشاط.');},true);
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-off]');
+    if(a){e.preventDefault();toast(a.getAttribute('data-off'));}},true);
+})();
+</script><style>
+#gd-bar{position:sticky;top:0;z-index:1000;background:#f59e0b;color:#0f2a47;font:700 14px Tahoma,Arial,sans-serif;
+  padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));display:flex;gap:10px 18px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+#gd-bar a{color:#0f2a47}
+#gd-toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);opacity:0;transition:.25s;z-index:1001;
+  background:#0f2a47;color:#fff;font:600 15px Tahoma,Arial,sans-serif;padding:12px 20px;border-radius:10px;max-width:min(560px,calc(100vw - 32px));
+  box-shadow:0 10px 30px rgba(0,0,0,.3);text-align:center;pointer-events:none}
+#gd-toast.on{opacity:1;transform:translateX(-50%)}
+</style></head>
+<body><div id="gd-bar"><span>نسخة عرض تفاعلية · بيانات وهمية · أنت تتصفح بدور: مسؤول الرقابة</span><a href="../index.html">تغيير الدور ↩</a></div>
+<header>
+  <strong>GOS — الرقابة الداخلية</strong>
+  
+  <nav>
+    <a href="home.html">اللوحة</a>
+    <a href="tasks.html">المهام (11)</a>
+    <a href="build.html">ابنِ منظومتك</a>
+    
+    <a href="setup.html">المؤسسة</a>
+    <a href="cycles.html">الدورات</a>
+    <a href="risks.html">المخاطر والضوابط</a>
+    <a href="tests.html">الاختبارات</a>
+    <a href="reviews.html">المراجعات</a>
+    
+    <a href="issues.html">الملاحظات</a>
+    <a href="pbc.html">وثائق المحافظ</a>
+    
+  </nav>
+  
+  
+  <span>
+    bk_ctrl (مسؤول الرقابة)
+    <a href="../index.html">تغيير الدور</a>
+    
+  </span>
+</header>
+<main>
+  
+  
+<h1>سجل المخاطر والضوابط</h1>
+<p><a href="#" data-off="تصدير Excel (CSV) يعمل في المنصة الحقيقية فقط.">تصدير إلى Excel (CSV)</a>
+   · <a href="risks_import.html">استيراد من Excel (CSV)</a></p>
+<p class="note">الدرجة = الاحتمال × الأثر (1–3 لكل منهما). الحدود قابلة للضبط وليست معياراً قانونياً. الخطر المتبقي يسجّله المراجع يدوياً مع مبرراته. نسخ المؤسسة لا تتغير تلقائياً حين يتغير القالب؛ تُظهر لك الصفحة التنبيه وتقرر أنت.</p>
+
+
+<div class="card">
+  <h2>شراء غير مرخّص <small>(مشتريات)</small></h2>
+  <div>
+    <span class="badge">المستوى: مرتفع</span>
+    <span class="badge">الدرجة: 9</span>
+    <span class="badge"><strong>▲ فوق حد التقبّل</strong></span>
+    <span class="badge">المرجع: ملف المخاطر 1</span>
+    
+  </div>
+  <h3 style="margin-top:8px">الضوابط</h3>
+  <ul>
+  
+    <li>مصادقة المسؤول على طلب الشراء وفق مصفوفة صلاحيات بسقف مبالغ
+      
+      
+      
+        <span class="badge">الاختبار القادم: 3 ديسمبر، 2026</span>
+      
+      <span class="badge">التصميم لم يُقيَّم</span>
+      
+      
+      <details><summary>تقييم ملاءمة التصميم</summary>
+        <form method="post"><input type="hidden" name="do" value="control_design"><input type="hidden" name="control" value="1">
+          <select name="design"><option value="">— لم يُقيَّم —</option><option value="adequate" >التصميم ملائم</option><option value="deficient" >التصميم غير ملائم</option></select>
+          <textarea name="design_rationale" placeholder="هل الضابط قادر نظرياً على معالجة الخطر؟ لماذا؟"></textarea>
+          <button class="primary">حفظ</button></form>
+      </details>
+      <span class="badge">المنفّذ: bk_oper</span>
+      
+      <details><summary>إسناد المنفّذ</summary>
+        <form method="post"><input type="hidden" name="do" value="control_performer"><input type="hidden" name="control" value="1">
+          <select name="performer"><option value="">— بلا منفّذ —</option><option value="1" >bk_admin (المسيّر (Admin))</option><option value="2" >bk_ctrl (مسؤول الرقابة)</option><option value="3" selected>bk_oper (مسؤول عملياتي)</option></select> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>دورية الاختبار</summary>
+        <form method="post"><input type="hidden" name="do" value="control_schedule"><input type="hidden" name="control" value="1">
+          <input name="test_interval_days" type="number" min="1" max="730" value="30" placeholder="كل كم يوماً (فارغ = غير مجدول)"> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>مكوّن COSO</summary>
+        <form method="post"><input type="hidden" name="do" value="control_coso"><input type="hidden" name="control" value="1">
+          <select name="coso"><option value="">— غير مصنّف —</option><option value="environment" >بيئة الرقابة</option><option value="risk_assessment" >تقييم المخاطر</option><option value="control_activities" >أنشطة الرقابة</option><option value="information" >المعلومات والتواصل</option><option value="monitoring" >أنشطة المتابعة</option></select> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>مرجع الضابط</summary>
+        <form method="post"><input type="hidden" name="do" value="control_ref"><input type="hidden" name="control" value="1">
+          <input name="external_ref" value="" placeholder="مثال: دليل الإجراءات، البند 4" maxlength="200"> <button class="primary">حفظ</button></form>
+      </details>
+    </li>
+  
+  </ul>
+  
+  <p>مسؤول الخطر: <span class="badge">غير معيَّن</span></p>
+  <details><summary>تعيين مسؤول الخطر</summary>
+    <form method="post"><input type="hidden" name="do" value="risk_owner"><input type="hidden" name="risk" value="1">
+      <select name="owner"><option value="">— غير معيَّن —</option><option value="1" >bk_admin (المسيّر (Admin))</option><option value="2" >bk_ctrl (مسؤول الرقابة)</option><option value="3" >bk_oper (مسؤول عملياتي)</option></select> <button class="primary">حفظ</button></form>
+  </details>
+  <details><summary>تقييم الخطر</summary>
+    <form method="post"><input type="hidden" name="do" value="assess"><input type="hidden" name="risk" value="1">
+      <div class="row">
+        <div><label>الاحتمال (1–3)</label><input name="likelihood" type="number" min="1" max="3" value="3"></div>
+        <div><label>الأثر (1–3)</label><input name="impact" type="number" min="1" max="3" value="3"></div>
+        <div><label>التقييم المتبقي</label><input name="residual_assessment" value=""></div>
+        <div><label>مرجع خارجي (ملف، رقم...)</label><input name="external_ref" value="ملف المخاطر 1" maxlength="200"></div>
+      </div>
+      <label>مبررات التقييم المتبقي</label><textarea name="residual_rationale"></textarea>
+      <button class="primary">حفظ</button>
+    </form>
+  </details>
+</div>
+
+<div class="card">
+  <h2>اختيار مورّد غير موضوعي <small>(مشتريات)</small></h2>
+  <div>
+    <span class="badge">المستوى: مرتفع</span>
+    <span class="badge">الدرجة: 6</span>
+    <span class="badge"><strong>▲ فوق حد التقبّل</strong></span>
+    
+    
+  </div>
+  <h3 style="margin-top:8px">الضوابط</h3>
+  <ul>
+  
+    <li>3 عروض أسعار فوق عتبة تحددها المؤسسة
+      
+      
+      
+        
+      
+      <span class="badge">التصميم لم يُقيَّم</span>
+      
+      
+      <details><summary>تقييم ملاءمة التصميم</summary>
+        <form method="post"><input type="hidden" name="do" value="control_design"><input type="hidden" name="control" value="2">
+          <select name="design"><option value="">— لم يُقيَّم —</option><option value="adequate" >التصميم ملائم</option><option value="deficient" >التصميم غير ملائم</option></select>
+          <textarea name="design_rationale" placeholder="هل الضابط قادر نظرياً على معالجة الخطر؟ لماذا؟"></textarea>
+          <button class="primary">حفظ</button></form>
+      </details>
+      <span class="badge">المنفّذ: bk_oper</span>
+      
+      <details><summary>إسناد المنفّذ</summary>
+        <form method="post"><input type="hidden" name="do" value="control_performer"><input type="hidden" name="control" value="2">
+          <select name="performer"><option value="">— بلا منفّذ —</option><option value="1" >bk_admin (المسيّر (Admin))</option><option value="2" >bk_ctrl (مسؤول الرقابة)</option><option value="3" selected>bk_oper (مسؤول عملياتي)</option></select> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>دورية الاختبار</summary>
+        <form method="post"><input type="hidden" name="do" value="control_schedule"><input type="hidden" name="control" value="2">
+          <input name="test_interval_days" type="number" min="1" max="730" value="" placeholder="كل كم يوماً (فارغ = غير مجدول)"> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>مكوّن COSO</summary>
+        <form method="post"><input type="hidden" name="do" value="control_coso"><input type="hidden" name="control" value="2">
+          <select name="coso"><option value="">— غير مصنّف —</option><option value="environment" >بيئة الرقابة</option><option value="risk_assessment" >تقييم المخاطر</option><option value="control_activities" >أنشطة الرقابة</option><option value="information" >المعلومات والتواصل</option><option value="monitoring" >أنشطة المتابعة</option></select> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>مرجع الضابط</summary>
+        <form method="post"><input type="hidden" name="do" value="control_ref"><input type="hidden" name="control" value="2">
+          <input name="external_ref" value="" placeholder="مثال: دليل الإجراءات، البند 4" maxlength="200"> <button class="primary">حفظ</button></form>
+      </details>
+    </li>
+  
+  </ul>
+  
+  <p>مسؤول الخطر: <span class="badge">غير معيَّن</span></p>
+  <details><summary>تعيين مسؤول الخطر</summary>
+    <form method="post"><input type="hidden" name="do" value="risk_owner"><input type="hidden" name="risk" value="2">
+      <select name="owner"><option value="">— غير معيَّن —</option><option value="1" >bk_admin (المسيّر (Admin))</option><option value="2" >bk_ctrl (مسؤول الرقابة)</option><option value="3" >bk_oper (مسؤول عملياتي)</option></select> <button class="primary">حفظ</button></form>
+  </details>
+  <details><summary>تقييم الخطر</summary>
+    <form method="post"><input type="hidden" name="do" value="assess"><input type="hidden" name="risk" value="2">
+      <div class="row">
+        <div><label>الاحتمال (1–3)</label><input name="likelihood" type="number" min="1" max="3" value="2"></div>
+        <div><label>الأثر (1–3)</label><input name="impact" type="number" min="1" max="3" value="3"></div>
+        <div><label>التقييم المتبقي</label><input name="residual_assessment" value=""></div>
+        <div><label>مرجع خارجي (ملف، رقم...)</label><input name="external_ref" value="" maxlength="200"></div>
+      </div>
+      <label>مبررات التقييم المتبقي</label><textarea name="residual_rationale"></textarea>
+      <button class="primary">حفظ</button>
+    </form>
+  </details>
+</div>
+
+<div class="card">
+  <h2>دفع فاتورة لسلعة غير مستلمة أو ملف ناقص <small>(مشتريات)</small></h2>
+  <div>
+    <span class="badge">المستوى: متوسط</span>
+    <span class="badge">الدرجة: 4</span>
+    
+    
+    
+  </div>
+  <h3 style="margin-top:8px">الضوابط</h3>
+  <ul>
+  
+    <li>مطابقة ثلاثية: أمر شراء، وصل استلام، فاتورة قبل الدفع
+      
+      
+      
+        <span class="badge"><strong>اختباره متأخر 20 يوماً</strong> (كان مستحقاً 3 نوفمبر، 2026)</span>
+        
+      
+      <span class="badge">التصميم لم يُقيَّم</span>
+      
+      
+      <details><summary>تقييم ملاءمة التصميم</summary>
+        <form method="post"><input type="hidden" name="do" value="control_design"><input type="hidden" name="control" value="3">
+          <select name="design"><option value="">— لم يُقيَّم —</option><option value="adequate" >التصميم ملائم</option><option value="deficient" >التصميم غير ملائم</option></select>
+          <textarea name="design_rationale" placeholder="هل الضابط قادر نظرياً على معالجة الخطر؟ لماذا؟"></textarea>
+          <button class="primary">حفظ</button></form>
+      </details>
+      <span class="badge">المنفّذ: bk_oper</span>
+      
+      <details><summary>إسناد المنفّذ</summary>
+        <form method="post"><input type="hidden" name="do" value="control_performer"><input type="hidden" name="control" value="3">
+          <select name="performer"><option value="">— بلا منفّذ —</option><option value="1" >bk_admin (المسيّر (Admin))</option><option value="2" >bk_ctrl (مسؤول الرقابة)</option><option value="3" selected>bk_oper (مسؤول عملياتي)</option></select> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>دورية الاختبار</summary>
+        <form method="post"><input type="hidden" name="do" value="control_schedule"><input type="hidden" name="control" value="3">
+          <input name="test_interval_days" type="number" min="1" max="730" value="30" placeholder="كل كم يوماً (فارغ = غير مجدول)"> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>مكوّن COSO</summary>
+        <form method="post"><input type="hidden" name="do" value="control_coso"><input type="hidden" name="control" value="3">
+          <select name="coso"><option value="">— غير مصنّف —</option><option value="environment" >بيئة الرقابة</option><option value="risk_assessment" >تقييم المخاطر</option><option value="control_activities" >أنشطة الرقابة</option><option value="information" >المعلومات والتواصل</option><option value="monitoring" >أنشطة المتابعة</option></select> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>مرجع الضابط</summary>
+        <form method="post"><input type="hidden" name="do" value="control_ref"><input type="hidden" name="control" value="3">
+          <input name="external_ref" value="" placeholder="مثال: دليل الإجراءات، البند 4" maxlength="200"> <button class="primary">حفظ</button></form>
+      </details>
+    </li>
+  
+  </ul>
+  
+  <p>مسؤول الخطر: <span class="badge">غير معيَّن</span></p>
+  <details><summary>تعيين مسؤول الخطر</summary>
+    <form method="post"><input type="hidden" name="do" value="risk_owner"><input type="hidden" name="risk" value="3">
+      <select name="owner"><option value="">— غير معيَّن —</option><option value="1" >bk_admin (المسيّر (Admin))</option><option value="2" >bk_ctrl (مسؤول الرقابة)</option><option value="3" >bk_oper (مسؤول عملياتي)</option></select> <button class="primary">حفظ</button></form>
+  </details>
+  <details><summary>تقييم الخطر</summary>
+    <form method="post"><input type="hidden" name="do" value="assess"><input type="hidden" name="risk" value="3">
+      <div class="row">
+        <div><label>الاحتمال (1–3)</label><input name="likelihood" type="number" min="1" max="3" value="2"></div>
+        <div><label>الأثر (1–3)</label><input name="impact" type="number" min="1" max="3" value="2"></div>
+        <div><label>التقييم المتبقي</label><input name="residual_assessment" value=""></div>
+        <div><label>مرجع خارجي (ملف، رقم...)</label><input name="external_ref" value="" maxlength="200"></div>
+      </div>
+      <label>مبررات التقييم المتبقي</label><textarea name="residual_rationale"></textarea>
+      <button class="primary">حفظ</button>
+    </form>
+  </details>
+</div>
+
+<div class="card">
+  <h2>اختلاس أو فرق في الصندوق <small>(خزينة)</small></h2>
+  <div>
+    <span class="badge">المستوى: متوسط</span>
+    <span class="badge">الدرجة: 3</span>
+    
+    
+    
+  </div>
+  <h3 style="margin-top:8px">الضوابط</h3>
+  <ul>
+  
+    <li>جرد الصندوق بحضور شخصين ومحضر موقّع، سقف نقدي، إيداع منتظم
+      
+      
+      
+        <span class="badge"><strong>لم يُختبر بعد</strong> ودوريته محددة</span>
+        
+      
+      <span class="badge">التصميم لم يُقيَّم</span>
+      
+      
+      <details><summary>تقييم ملاءمة التصميم</summary>
+        <form method="post"><input type="hidden" name="do" value="control_design"><input type="hidden" name="control" value="4">
+          <select name="design"><option value="">— لم يُقيَّم —</option><option value="adequate" >التصميم ملائم</option><option value="deficient" >التصميم غير ملائم</option></select>
+          <textarea name="design_rationale" placeholder="هل الضابط قادر نظرياً على معالجة الخطر؟ لماذا؟"></textarea>
+          <button class="primary">حفظ</button></form>
+      </details>
+      <span class="badge"><strong>بلا منفّذ</strong></span>
+      
+      <details><summary>إسناد المنفّذ</summary>
+        <form method="post"><input type="hidden" name="do" value="control_performer"><input type="hidden" name="control" value="4">
+          <select name="performer"><option value="">— بلا منفّذ —</option><option value="1" >bk_admin (المسيّر (Admin))</option><option value="2" >bk_ctrl (مسؤول الرقابة)</option><option value="3" >bk_oper (مسؤول عملياتي)</option></select> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>دورية الاختبار</summary>
+        <form method="post"><input type="hidden" name="do" value="control_schedule"><input type="hidden" name="control" value="4">
+          <input name="test_interval_days" type="number" min="1" max="730" value="90" placeholder="كل كم يوماً (فارغ = غير مجدول)"> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>مكوّن COSO</summary>
+        <form method="post"><input type="hidden" name="do" value="control_coso"><input type="hidden" name="control" value="4">
+          <select name="coso"><option value="">— غير مصنّف —</option><option value="environment" >بيئة الرقابة</option><option value="risk_assessment" >تقييم المخاطر</option><option value="control_activities" >أنشطة الرقابة</option><option value="information" >المعلومات والتواصل</option><option value="monitoring" >أنشطة المتابعة</option></select> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>مرجع الضابط</summary>
+        <form method="post"><input type="hidden" name="do" value="control_ref"><input type="hidden" name="control" value="4">
+          <input name="external_ref" value="" placeholder="مثال: دليل الإجراءات، البند 4" maxlength="200"> <button class="primary">حفظ</button></form>
+      </details>
+    </li>
+  
+  </ul>
+  
+  <p>مسؤول الخطر: <span class="badge">غير معيَّن</span></p>
+  <details><summary>تعيين مسؤول الخطر</summary>
+    <form method="post"><input type="hidden" name="do" value="risk_owner"><input type="hidden" name="risk" value="4">
+      <select name="owner"><option value="">— غير معيَّن —</option><option value="1" >bk_admin (المسيّر (Admin))</option><option value="2" >bk_ctrl (مسؤول الرقابة)</option><option value="3" >bk_oper (مسؤول عملياتي)</option></select> <button class="primary">حفظ</button></form>
+  </details>
+  <details><summary>تقييم الخطر</summary>
+    <form method="post"><input type="hidden" name="do" value="assess"><input type="hidden" name="risk" value="4">
+      <div class="row">
+        <div><label>الاحتمال (1–3)</label><input name="likelihood" type="number" min="1" max="3" value="1"></div>
+        <div><label>الأثر (1–3)</label><input name="impact" type="number" min="1" max="3" value="3"></div>
+        <div><label>التقييم المتبقي</label><input name="residual_assessment" value=""></div>
+        <div><label>مرجع خارجي (ملف، رقم...)</label><input name="external_ref" value="" maxlength="200"></div>
+      </div>
+      <label>مبررات التقييم المتبقي</label><textarea name="residual_rationale"></textarea>
+      <button class="primary">حفظ</button>
+    </form>
+  </details>
+</div>
+
+<div class="card">
+  <h2>خطأ في الرصيد البنكي <small>(خزينة)</small></h2>
+  <div>
+    <span class="badge">المستوى: منخفض</span>
+    <span class="badge">الدرجة: 1</span>
+    
+    
+    
+  </div>
+  <h3 style="margin-top:8px">الضوابط</h3>
+  <ul>
+  
+    <li>تقارب بنكي شهري يراجعه شخص ثانٍ
+      
+      
+      
+        
+      
+      <span class="badge">التصميم لم يُقيَّم</span>
+      
+      
+      <details><summary>تقييم ملاءمة التصميم</summary>
+        <form method="post"><input type="hidden" name="do" value="control_design"><input type="hidden" name="control" value="5">
+          <select name="design"><option value="">— لم يُقيَّم —</option><option value="adequate" >التصميم ملائم</option><option value="deficient" >التصميم غير ملائم</option></select>
+          <textarea name="design_rationale" placeholder="هل الضابط قادر نظرياً على معالجة الخطر؟ لماذا؟"></textarea>
+          <button class="primary">حفظ</button></form>
+      </details>
+      <span class="badge"><strong>بلا منفّذ</strong></span>
+      
+      <details><summary>إسناد المنفّذ</summary>
+        <form method="post"><input type="hidden" name="do" value="control_performer"><input type="hidden" name="control" value="5">
+          <select name="performer"><option value="">— بلا منفّذ —</option><option value="1" >bk_admin (المسيّر (Admin))</option><option value="2" >bk_ctrl (مسؤول الرقابة)</option><option value="3" >bk_oper (مسؤول عملياتي)</option></select> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>دورية الاختبار</summary>
+        <form method="post"><input type="hidden" name="do" value="control_schedule"><input type="hidden" name="control" value="5">
+          <input name="test_interval_days" type="number" min="1" max="730" value="" placeholder="كل كم يوماً (فارغ = غير مجدول)"> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>مكوّن COSO</summary>
+        <form method="post"><input type="hidden" name="do" value="control_coso"><input type="hidden" name="control" value="5">
+          <select name="coso"><option value="">— غير مصنّف —</option><option value="environment" >بيئة الرقابة</option><option value="risk_assessment" >تقييم المخاطر</option><option value="control_activities" >أنشطة الرقابة</option><option value="information" >المعلومات والتواصل</option><option value="monitoring" >أنشطة المتابعة</option></select> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>مرجع الضابط</summary>
+        <form method="post"><input type="hidden" name="do" value="control_ref"><input type="hidden" name="control" value="5">
+          <input name="external_ref" value="" placeholder="مثال: دليل الإجراءات، البند 4" maxlength="200"> <button class="primary">حفظ</button></form>
+      </details>
+    </li>
+  
+  </ul>
+  
+  <p>مسؤول الخطر: <span class="badge">غير معيَّن</span></p>
+  <details><summary>تعيين مسؤول الخطر</summary>
+    <form method="post"><input type="hidden" name="do" value="risk_owner"><input type="hidden" name="risk" value="5">
+      <select name="owner"><option value="">— غير معيَّن —</option><option value="1" >bk_admin (المسيّر (Admin))</option><option value="2" >bk_ctrl (مسؤول الرقابة)</option><option value="3" >bk_oper (مسؤول عملياتي)</option></select> <button class="primary">حفظ</button></form>
+  </details>
+  <details><summary>تقييم الخطر</summary>
+    <form method="post"><input type="hidden" name="do" value="assess"><input type="hidden" name="risk" value="5">
+      <div class="row">
+        <div><label>الاحتمال (1–3)</label><input name="likelihood" type="number" min="1" max="3" value="1"></div>
+        <div><label>الأثر (1–3)</label><input name="impact" type="number" min="1" max="3" value="1"></div>
+        <div><label>التقييم المتبقي</label><input name="residual_assessment" value=""></div>
+        <div><label>مرجع خارجي (ملف، رقم...)</label><input name="external_ref" value="" maxlength="200"></div>
+      </div>
+      <label>مبررات التقييم المتبقي</label><textarea name="residual_rationale"></textarea>
+      <button class="primary">حفظ</button>
+    </form>
+  </details>
+</div>
+
+<div class="card">
+  <h2>فروق بين الدفاتر والواقع <small>(مخزون وتثبيتات)</small></h2>
+  <div>
+    <span class="badge">المستوى: متوسط</span>
+    <span class="badge">الدرجة: 3</span>
+    
+    
+    
+  </div>
+  <h3 style="margin-top:8px">الضوابط</h3>
+  <ul>
+  
+    <li>جرد فعلي سنوي موثّق ومطابقته مع الدفاتر
+      
+      
+      
+        
+      
+      <span class="badge">التصميم لم يُقيَّم</span>
+      
+      
+      <details><summary>تقييم ملاءمة التصميم</summary>
+        <form method="post"><input type="hidden" name="do" value="control_design"><input type="hidden" name="control" value="6">
+          <select name="design"><option value="">— لم يُقيَّم —</option><option value="adequate" >التصميم ملائم</option><option value="deficient" >التصميم غير ملائم</option></select>
+          <textarea name="design_rationale" placeholder="هل الضابط قادر نظرياً على معالجة الخطر؟ لماذا؟"></textarea>
+          <button class="primary">حفظ</button></form>
+      </details>
+      <span class="badge"><strong>بلا منفّذ</strong></span>
+      
+      <details><summary>إسناد المنفّذ</summary>
+        <form method="post"><input type="hidden" name="do" value="control_performer"><input type="hidden" name="control" value="6">
+          <select name="performer"><option value="">— بلا منفّذ —</option><option value="1" >bk_admin (المسيّر (Admin))</option><option value="2" >bk_ctrl (مسؤول الرقابة)</option><option value="3" >bk_oper (مسؤول عملياتي)</option></select> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>دورية الاختبار</summary>
+        <form method="post"><input type="hidden" name="do" value="control_schedule"><input type="hidden" name="control" value="6">
+          <input name="test_interval_days" type="number" min="1" max="730" value="" placeholder="كل كم يوماً (فارغ = غير مجدول)"> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>مكوّن COSO</summary>
+        <form method="post"><input type="hidden" name="do" value="control_coso"><input type="hidden" name="control" value="6">
+          <select name="coso"><option value="">— غير مصنّف —</option><option value="environment" >بيئة الرقابة</option><option value="risk_assessment" >تقييم المخاطر</option><option value="control_activities" >أنشطة الرقابة</option><option value="information" >المعلومات والتواصل</option><option value="monitoring" >أنشطة المتابعة</option></select> <button class="primary">حفظ</button></form>
+      </details>
+      <details><summary>مرجع الضابط</summary>
+        <form method="post"><input type="hidden" name="do" value="control_ref"><input type="hidden" name="control" value="6">
+          <input name="external_ref" value="" placeholder="مثال: دليل الإجراءات، البند 4" maxlength="200"> <button class="primary">حفظ</button></form>
+      </details>
+    </li>
+  
+  </ul>
+  
+  <p>مسؤول الخطر: <span class="badge">غير معيَّن</span></p>
+  <details><summary>تعيين مسؤول الخطر</summary>
+    <form method="post"><input type="hidden" name="do" value="risk_owner"><input type="hidden" name="risk" value="6">
+      <select name="owner"><option value="">— غير معيَّن —</option><option value="1" >bk_admin (المسيّر (Admin))</option><option value="2" >bk_ctrl (مسؤول الرقابة)</option><option value="3" >bk_oper (مسؤول عملياتي)</option></select> <button class="primary">حفظ</button></form>
+  </details>
+  <details><summary>تقييم الخطر</summary>
+    <form method="post"><input type="hidden" name="do" value="assess"><input type="hidden" name="risk" value="6">
+      <div class="row">
+        <div><label>الاحتمال (1–3)</label><input name="likelihood" type="number" min="1" max="3" value="3"></div>
+        <div><label>الأثر (1–3)</label><input name="impact" type="number" min="1" max="3" value="1"></div>
+        <div><label>التقييم المتبقي</label><input name="residual_assessment" value=""></div>
+        <div><label>مرجع خارجي (ملف، رقم...)</label><input name="external_ref" value="" maxlength="200"></div>
+      </div>
+      <label>مبررات التقييم المتبقي</label><textarea name="residual_rationale"></textarea>
+      <button class="primary">حفظ</button>
+    </form>
+  </details>
+</div>
+
+
+</main>
+<div id="gd-toast" role="status"></div></body>
+</html>

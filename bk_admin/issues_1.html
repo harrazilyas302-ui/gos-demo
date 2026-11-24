@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>بطاقة ملاحظة</title>
+<style>
+  body{font-family:Tahoma,Arial,sans-serif;margin:0;background:#f5f6f8;color:#1c1f24}
+  header{background:#1f3a5f;color:#fff;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  header a,header button{color:#fff;background:none;border:0;cursor:pointer;font:inherit;text-decoration:underline}
+  nav a{margin-inline-end:14px}
+  main{max-width:1100px;margin:24px auto;padding:0 16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .card{background:#fff;border:1px solid #d9dde3;border-radius:8px;padding:16px;margin-bottom:16px}
+  .card h2,.card h3{margin:0 0 8px;font-size:1rem;color:#41506b}
+  .big{font-size:1.8rem;font-weight:bold}
+  .empty{color:#6b7280}
+  .note{font-size:.85rem;color:#8a5a00}
+  .badge{display:inline-block;padding:2px 8px;border-radius:4px;border:1px solid #888;margin:2px;font-size:.9rem}
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:start;padding:6px 8px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+  th{color:#41506b;font-size:.9rem}
+  input,select,textarea{font:inherit;padding:4px 6px;max-width:100%}
+  textarea{width:100%;min-height:60px}
+  label{display:block;margin:6px 0 2px;font-size:.9rem}
+  button.primary{background:#1f3a5f;color:#fff;border:0;border-radius:4px;padding:6px 14px;cursor:pointer}
+  .msg{padding:8px 12px;border-radius:6px;margin-bottom:10px;border:1px solid}
+  .msg.success{background:#e8f6ec;border-color:#7cc08e}
+  .msg.error{background:#fdecec;border-color:#e08a8a}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+  details summary{cursor:pointer;color:#1f3a5f}
+  .inline{display:inline}
+</style>
+<script>
+/* نسخة عرض: لا شيء يُرسَل إلى خادم */
+(function(){
+  function toast(msg){var t=document.getElementById('gd-toast');if(!t)return;t.textContent=msg;t.classList.add('on');
+    clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on')},2600);}
+  window.gdToast=toast;
+  HTMLFormElement.prototype.submit=function(){toast('نسخة عرض للتصفح: تغيير السنة والحفظ معطّلان هنا.');};
+  document.addEventListener('submit',function(e){e.preventDefault();toast('نسخة عرض للتصفح: الحفظ معطّل. في المنصة الحقيقية يُحفظ هذا ويُسجَّل في سجل النشاط.');},true);
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-off]');
+    if(a){e.preventDefault();toast(a.getAttribute('data-off'));}},true);
+})();
+</script><style>
+#gd-bar{position:sticky;top:0;z-index:1000;background:#f59e0b;color:#0f2a47;font:700 14px Tahoma,Arial,sans-serif;
+  padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));display:flex;gap:10px 18px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+#gd-bar a{color:#0f2a47}
+#gd-toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);opacity:0;transition:.25s;z-index:1001;
+  background:#0f2a47;color:#fff;font:600 15px Tahoma,Arial,sans-serif;padding:12px 20px;border-radius:10px;max-width:min(560px,calc(100vw - 32px));
+  box-shadow:0 10px 30px rgba(0,0,0,.3);text-align:center;pointer-events:none}
+#gd-toast.on{opacity:1;transform:translateX(-50%)}
+</style></head>
+<body><div id="gd-bar"><span>نسخة عرض تفاعلية · بيانات وهمية · أنت تتصفح بدور: المسيّر</span><a href="../index.html">تغيير الدور ↩</a></div>
+<header>
+  <strong>GOS — الرقابة الداخلية</strong>
+  
+  <nav>
+    <a href="home.html">اللوحة</a>
+    <a href="tasks.html">المهام (15)</a>
+    <a href="build.html">ابنِ منظومتك</a>
+    
+    <a href="setup.html">المؤسسة</a>
+    <a href="cycles.html">الدورات</a>
+    <a href="risks.html">المخاطر والضوابط</a>
+    <a href="tests.html">الاختبارات</a>
+    <a href="reviews.html">المراجعات</a>
+    
+    <a href="issues.html">الملاحظات</a>
+    <a href="pbc.html">وثائق المحافظ</a>
+    <a href="users.html">المستخدمون</a><a href="permissions.html">الصلاحيات</a><a href="activity.html">سجل النشاط</a>
+  </nav>
+  
+  
+  <span>
+    bk_admin (المسيّر (Admin))
+    <a href="../index.html">تغيير الدور</a>
+    
+  </span>
+</header>
+<main>
+  
+  
+<h1>اختبار غير فعّال للضابط: مصادقة المسؤول على طلب الشراء وفق مصفوفة صلاحيات بسقف مبالغ</h1>
+<p>الحالة: <span class="badge">مسودة</span>
+   المصدر: اختبار ضابط
+   · الخطورة: مرتفعة
+   </p>
+
+
+<details><summary>تصنيف القصور (للإدارة العليا)</summary>
+  <form method="post"><input type="hidden" name="do" value="significance">
+    <label><input type="checkbox" name="significant" value="1" > قصور مهم يستحق رفعه إلى الإدارة العليا/الحوكمة</label>
+    <textarea name="significance_rationale" placeholder="لماذا؟ (الأثر المحتمل على القوائم المالية، التكرار، غياب رقابة تعويضية...)"></textarea>
+    <p class="note">حكم مهني للمسيّر، وليس تصنيفاً قانونياً آلياً. المحافظ يقيّم أوجه القصور بنفسه.</p>
+    <button class="primary">حفظ</button></form>
+</details>
+
+<p>الأدلة المرفقة: <span class="badge">0</span>
+  <a href="#actions">انتقل إلى الأدلة (تحت كل إجراء) ↓</a></p>
+<div class="card">
+  <h2>بطاقة FRAP</h2>
+  
+  <form method="post"><input type="hidden" name="do" value="card">
+    <label>العنوان</label><input name="title" value="اختبار غير فعّال للضابط: مصادقة المسؤول على طلب الشراء وفق مصفوفة صلاحيات بسقف مبالغ" style="width:100%">
+    <label>الواقعة</label><textarea name="fact">استثناءات: 3 من 5 عنصراً مسجَّلاً (حجم العينة المخطط: 5). النتيجة تخص العينة فقط ولا تُعمَّم آلياً.</textarea>
+    <label>المعيار</label><textarea name="criterion">مصادقة المسؤول قبل أمر الشراء</textarea>
+    <label>السبب</label><textarea name="cause"></textarea>
+    <label>الأثر</label><textarea name="impact"></textarea>
+    <label>التوصية</label><textarea name="recommendation">تطبيق الضابط والتحقق من تشغيله فعلياً: مصادقة المسؤول على طلب الشراء وفق مصفوفة صلاحيات بسقف مبالغ</textarea>
+    <div class="row">
+      <div><label>الخطورة</label><select name="severity"><option value="">—</option><option value="high" selected>مرتفعة</option><option value="medium" >متوسطة</option><option value="low" >منخفضة</option></select></div>
+      <div style="flex:1"><label>مبررات الخطورة</label><input name="severity_rationale" value="مقترحة آلياً من درجة الخطر المرتبط (9)؛ راجعها قبل الاعتماد." style="width:100%"></div>
+    </div>
+    <p><button class="primary">حفظ البطاقة</button></p>
+  </form>
+  
+  <p>المرجع الخارجي: <span class="empty">—</span></p>
+  
+  <details><summary>تعديل المرجع الخارجي</summary>
+    <form method="post"><input type="hidden" name="do" value="ref"><input name="external_ref" value="" maxlength="200" placeholder="مثال: ملف الشراء رقم 12"> <button class="primary">حفظ</button></form>
+  </details>
+  <p>السبب الجذري المشترك: <span class="badge">غياب مصفوفة الصلاحيات</span> (2 ملاحظات)</p>
+  
+  <details><summary>ربط بسبب جذري مشترك</summary>
+    <form method="post"><input type="hidden" name="do" value="root_cause"><input name="title" placeholder="مثال: غياب مصفوفة الصلاحيات"> <button class="primary">ربط</button></form>
+  </details>
+  
+  <p class="note">إشارة للمراجع: توجد ملاحظات مشابهة (نفس الضابط أو السبب):
+    <a href="issues_3.html">دفع فواتير دون وصل استلام</a> (قيد التنفيذ).
+    هذا لا يغيّر الخطورة تلقائياً.</p>
+  
+</div>
+
+<div class="card">
+  <h2>الانتقال إلى حالة</h2>
+  
+  
+  <form method="post" style="border-top:1px solid #e5e7eb;padding:6px 0">
+    <input type="hidden" name="do" value="transition"><input type="hidden" name="to" value="approved">
+    <strong>← معتمدة</strong>
+    <input name="reason" placeholder="السبب (اختياري)">
+    
+    
+    <button class="primary">تنفيذ</button>
+  </form>
+  
+  <form method="post" style="border-top:1px solid #e5e7eb;padding:6px 0">
+    <input type="hidden" name="do" value="transition"><input type="hidden" name="to" value="rejected">
+    <strong>← مرفوضة</strong>
+    <input name="reason" placeholder="السبب (إلزامي)" required>
+    
+    
+    <button class="primary">تنفيذ</button>
+  </form>
+  
+  <form method="post" style="border-top:1px solid #e5e7eb;padding:6px 0">
+    <input type="hidden" name="do" value="transition"><input type="hidden" name="to" value="cancelled">
+    <strong>← ملغاة</strong>
+    <input name="reason" placeholder="السبب (إلزامي)" required>
+    
+    
+    <button class="primary">تنفيذ</button>
+  </form>
+  
+</div>
+
+<div class="card" id="actions">
+  <h2>خطة العمل والإجراءات</h2>
+  <div class="empty">لا إجراءات بعد.</div>
+  
+  
+  <details><summary>إضافة إجراء</summary>
+    <form method="post"><input type="hidden" name="do" value="action">
+      <label>الإجراء</label><input name="description" style="width:100%" required>
+      <label>النتيجة المتوقعة</label><input name="expected_result" style="width:100%">
+      <div class="row">
+        <div><label>المسؤول</label><select name="owner" required><option value="1" >bk_admin</option><option value="4" >bk_aud</option><option value="2" >bk_ctrl</option><option value="3" selected>bk_oper</option></select></div>
+        <div><label>الأجل</label><input name="due_date" type="date" required></div>
+      </div>
+      <p><button class="primary">إضافة</button></p></form>
+  </details>
+</div>
+
+
+
+<div class="card"><h2>سجل الانتقالات</h2>
+  <div class="empty">لا انتقالات بعد.</div>
+</div>
+<p><a href="issues.html">← كل الملاحظات</a></p>
+
+</main>
+<div id="gd-toast" role="status"></div></body>
+</html>

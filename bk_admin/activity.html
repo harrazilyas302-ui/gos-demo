@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>سجل النشاط</title>
+<style>
+  body{font-family:Tahoma,Arial,sans-serif;margin:0;background:#f5f6f8;color:#1c1f24}
+  header{background:#1f3a5f;color:#fff;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  header a,header button{color:#fff;background:none;border:0;cursor:pointer;font:inherit;text-decoration:underline}
+  nav a{margin-inline-end:14px}
+  main{max-width:1100px;margin:24px auto;padding:0 16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .card{background:#fff;border:1px solid #d9dde3;border-radius:8px;padding:16px;margin-bottom:16px}
+  .card h2,.card h3{margin:0 0 8px;font-size:1rem;color:#41506b}
+  .big{font-size:1.8rem;font-weight:bold}
+  .empty{color:#6b7280}
+  .note{font-size:.85rem;color:#8a5a00}
+  .badge{display:inline-block;padding:2px 8px;border-radius:4px;border:1px solid #888;margin:2px;font-size:.9rem}
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:start;padding:6px 8px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+  th{color:#41506b;font-size:.9rem}
+  input,select,textarea{font:inherit;padding:4px 6px;max-width:100%}
+  textarea{width:100%;min-height:60px}
+  label{display:block;margin:6px 0 2px;font-size:.9rem}
+  button.primary{background:#1f3a5f;color:#fff;border:0;border-radius:4px;padding:6px 14px;cursor:pointer}
+  .msg{padding:8px 12px;border-radius:6px;margin-bottom:10px;border:1px solid}
+  .msg.success{background:#e8f6ec;border-color:#7cc08e}
+  .msg.error{background:#fdecec;border-color:#e08a8a}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+  details summary{cursor:pointer;color:#1f3a5f}
+  .inline{display:inline}
+</style>
+<script>
+/* نسخة عرض: لا شيء يُرسَل إلى خادم */
+(function(){
+  function toast(msg){var t=document.getElementById('gd-toast');if(!t)return;t.textContent=msg;t.classList.add('on');
+    clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on')},2600);}
+  window.gdToast=toast;
+  HTMLFormElement.prototype.submit=function(){toast('نسخة عرض للتصفح: تغيير السنة والحفظ معطّلان هنا.');};
+  document.addEventListener('submit',function(e){e.preventDefault();toast('نسخة عرض للتصفح: الحفظ معطّل. في المنصة الحقيقية يُحفظ هذا ويُسجَّل في سجل النشاط.');},true);
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-off]');
+    if(a){e.preventDefault();toast(a.getAttribute('data-off'));}},true);
+})();
+</script><style>
+#gd-bar{position:sticky;top:0;z-index:1000;background:#f59e0b;color:#0f2a47;font:700 14px Tahoma,Arial,sans-serif;
+  padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));display:flex;gap:10px 18px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+#gd-bar a{color:#0f2a47}
+#gd-toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);opacity:0;transition:.25s;z-index:1001;
+  background:#0f2a47;color:#fff;font:600 15px Tahoma,Arial,sans-serif;padding:12px 20px;border-radius:10px;max-width:min(560px,calc(100vw - 32px));
+  box-shadow:0 10px 30px rgba(0,0,0,.3);text-align:center;pointer-events:none}
+#gd-toast.on{opacity:1;transform:translateX(-50%)}
+</style></head>
+<body><div id="gd-bar"><span>نسخة عرض تفاعلية · بيانات وهمية · أنت تتصفح بدور: المسيّر</span><a href="../index.html">تغيير الدور ↩</a></div>
+<header>
+  <strong>GOS — الرقابة الداخلية</strong>
+  
+  <nav>
+    <a href="home.html">اللوحة</a>
+    <a href="tasks.html">المهام (15)</a>
+    <a href="build.html">ابنِ منظومتك</a>
+    
+    <a href="setup.html">المؤسسة</a>
+    <a href="cycles.html">الدورات</a>
+    <a href="risks.html">المخاطر والضوابط</a>
+    <a href="tests.html">الاختبارات</a>
+    <a href="reviews.html">المراجعات</a>
+    
+    <a href="issues.html">الملاحظات</a>
+    <a href="pbc.html">وثائق المحافظ</a>
+    <a href="users.html">المستخدمون</a><a href="permissions.html">الصلاحيات</a><a href="activity.html">سجل النشاط</a>
+  </nav>
+  
+  
+  <span>
+    bk_admin (المسيّر (Admin))
+    <a href="../index.html">تغيير الدور</a>
+    
+  </span>
+</header>
+<main>
+  
+  
+<h1>سجل النشاط</h1>
+<p class="note">سجل لكل تغيير مهم في مؤسستك: من فعل ماذا ومتى. للإضافة فقط، فلا يُعدَّل ولا يُحذف. لا تُخزَّن فيه كلمات المرور.</p>
+
+<div class="card">
+  <form method="post" action="#" class="inline">
+    <button class="primary">تحقق من سلامة السجل</button>
+    <small class="note">كل حدث مرتبط بما قبله بتجزئة SHA-256؛ أي تعديل أو حذف يُكشف.</small></form>
+</div>
+
+<div class="card">
+  <form method="get">
+    <div class="row">
+      <div><label>نوع العملية</label>
+        <select name="action"><option value="">الكل</option><option value="qci_answered" >إجابة QCI</option><option value="action_added" >إضافة إجراء</option><option value="pbc_activated" >إضافة قائمة وثائق المحافظ</option><option value="issue_created" >إنشاء ملاحظة</option><option value="issue_transition" >انتقال حالة ملاحظة</option><option value="action_status" >تحديث حالة إجراء</option><option value="pbc_status" >تحديث حالة وثيقة</option><option value="population_analyzed" >تحليل شذوذ مجتمع العينة</option><option value="control_test_result_set" >تسجيل نتيجة اختبار</option><option value="test_report_exported" >تصدير تقرير اختبار</option><option value="pbc_exported" >تصدير حزمة المحافظ (PDF)</option><option value="issue_updated" >تعديل بطاقة ملاحظة</option><option value="pbc_updated" >تعديل وثيقة</option><option value="setting_changed" >تغيير إعداد</option><option value="cycle_activated" >تفعيل دورة</option><option value="risk_assessed" >تقييم خطر</option><option value="control_test_saved" >حفظ اختبار ضابط</option><option value="profile_saved" >حفظ تعريف المؤسسة</option><option value="login" >دخول</option><option value="evidence_uploaded" >رفع دليل</option><option value="sampling_uploaded" >رفع ملف مجتمع لسحب عينة</option><option value="sample_drawn" >سحب عينة (قرعة موثّقة)</option><option value="control_test_tolerance" >ضبط الحد المقبول للاستثناءات</option><option value="control_schedule_set" >ضبط دورية اختبار</option><option value="sample_evaluated" >فحص عنصر من العينة</option><option value="management_review" >مراجعة إدارية</option><option value="evidence_reviewed" >مراجعة دليل</option><option value="evidence_sharing" >مشاركة دليل مع المحافظ</option></select></div>
+      <div><label>المنفّذ (اسم المستخدم)</label><input name="actor" value="" maxlength="60"></div>
+      <div><label>من تاريخ</label><input type="date" name="from" value=""></div>
+      <div><label>إلى تاريخ</label><input type="date" name="to" value=""></div>
+      <div><button class="primary">تصفية</button></div>
+    </div>
+  </form>
+  <p style="margin-top:8px">النتائج: 85
+    · <a href="#" data-off="تصدير Excel (CSV) يعمل في المنصة الحقيقية فقط.">تصدير إلى Excel (CSV)</a> <small class="note">(حتى 5000 سجل)</small></p>
+</div>
+
+<div class="card">
+  
+  <table>
+    <tr><th>الوقت</th><th>المنفّذ</th><th>العملية</th><th>السجل المتأثر</th><th>التفاصيل</th></tr>
+    
+    <tr>
+      <td>2026-11-24 03:01:23</td>
+      <td>bk_admin</td>
+      <td><span class="badge">تصدير حزمة المحافظ (PDF)</span></td>
+      <td>سنة مالية #1</td>
+      <td><small>بعد: {&quot;readiness&quot;: 37, &quot;items&quot;: 21}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 03:01:18</td>
+      <td>bk_admin</td>
+      <td><span class="badge">تصدير تقرير اختبار</span></td>
+      <td>اختبار #1</td>
+      <td><small>بعد: {&quot;samples&quot;: 5, &quot;chain_ok&quot;: true}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 03:01:15</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">فحص عنصر من العينة</span></td>
+      <td>testsample #15</td>
+      <td><small>قبل: {&quot;result&quot;: &quot;pending&quot;} ← بعد: {&quot;result&quot;: &quot;exception&quot;, &quot;test&quot;: 4}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 03:01:15</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">فحص عنصر من العينة</span></td>
+      <td>testsample #14</td>
+      <td><small>قبل: {&quot;result&quot;: &quot;pending&quot;} ← بعد: {&quot;result&quot;: &quot;ok&quot;, &quot;test&quot;: 4}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 03:01:14</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">فحص عنصر من العينة</span></td>
+      <td>testsample #13</td>
+      <td><small>قبل: {&quot;result&quot;: &quot;pending&quot;} ← بعد: {&quot;result&quot;: &quot;ok&quot;, &quot;test&quot;: 4}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 03:01:13</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">سحب عينة (قرعة موثّقة)</span></td>
+      <td>اختبار #4</td>
+      <td><small>بعد: {&quot;seed&quot;: 667571687, &quot;population&quot;: 244, &quot;drawn&quot;: 15, &quot;key_items&quot;: 10, &quot;threshold&quot;: &quot;1000000&quot;, &quot;sha256&quot;: &quot;fd1089407be0d280&quot;, &quot;include_flagged&quot;: true, &quot;flagged&quot;: 10}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 03:01:12</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">تحليل شذوذ مجتمع العينة</span></td>
+      <td>اختبار #4</td>
+      <td><small>بعد: {&quot;flagged&quot;: 10, &quot;population&quot;: 244}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 03:01:11</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">رفع ملف مجتمع لسحب عينة</span></td>
+      <td>اختبار #4</td>
+      <td><small>بعد: {&quot;file&quot;: &quot;مشتريات_2026_السداسي_الأول.csv&quot;, &quot;rows&quot;: 244, &quot;sha256&quot;: &quot;fd1089407be0d280&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 03:01:10</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">ضبط الحد المقبول للاستثناءات</span></td>
+      <td>اختبار #4</td>
+      <td><small>قبل: {&quot;tolerable&quot;: null} ← بعد: {&quot;tolerable&quot;: 1}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 03:01:10</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">حفظ اختبار ضابط</span></td>
+      <td>اختبار #4</td>
+      <td><small>بعد: {&quot;result&quot;: &quot;inconclusive&quot;, &quot;sample_size&quot;: 15}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 03:01:02</td>
+      <td>bk_admin</td>
+      <td><span class="badge">حفظ تعريف المؤسسة</span></td>
+      <td>companyprofile #1</td>
+      <td><small>بعد: {&quot;makes_purchases&quot;: &quot;yes&quot;, &quot;handles_cash&quot;: &quot;yes&quot;, &quot;has_bank_accounts&quot;: &quot;yes&quot;, &quot;holds_inventory&quot;: &quot;yes&quot;, &quot;can_separate_duties&quot;: &quot;yes&quot;, &quot;has_commissaire&quot;: &quot;yes&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:46:54</td>
+      <td>bk_aud</td>
+      <td><span class="badge">دخول</span></td>
+      <td>—</td>
+      <td><small>بعد: {&quot;ip&quot;: &quot;&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:46:54</td>
+      <td>bk_oper</td>
+      <td><span class="badge">دخول</span></td>
+      <td>—</td>
+      <td><small>بعد: {&quot;ip&quot;: &quot;&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:46:54</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">دخول</span></td>
+      <td>—</td>
+      <td><small>بعد: {&quot;ip&quot;: &quot;&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:46:54</td>
+      <td>bk_admin</td>
+      <td><span class="badge">دخول</span></td>
+      <td>—</td>
+      <td><small>بعد: {&quot;ip&quot;: &quot;&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_admin</td>
+      <td><span class="badge">مراجعة إدارية</span></td>
+      <td>مراجعة إدارية #1</td>
+      <td><small>بعد: {&quot;reviewed_on&quot;: &quot;2026-10-09&quot;, &quot;compensating&quot;: true}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">تعديل وثيقة</span></td>
+      <td>وثيقة #21</td>
+      <td><small>بعد: {&quot;owner&quot;: 3, &quot;due&quot;: &quot;2026-11-19&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">تعديل وثيقة</span></td>
+      <td>وثيقة #20</td>
+      <td><small>بعد: {&quot;owner&quot;: 3, &quot;due&quot;: &quot;2026-12-08&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">تعديل وثيقة</span></td>
+      <td>وثيقة #19</td>
+      <td><small>بعد: {&quot;owner&quot;: 3, &quot;due&quot;: &quot;2026-12-08&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">تحديث حالة وثيقة</span></td>
+      <td>وثيقة #12</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;required&quot;} ← بعد: {&quot;status&quot;: &quot;na&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">تحديث حالة وثيقة</span></td>
+      <td>وثيقة #11</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;required&quot;} ← بعد: {&quot;status&quot;: &quot;na&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">تحديث حالة وثيقة</span></td>
+      <td>وثيقة #10</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;required&quot;} ← بعد: {&quot;status&quot;: &quot;needs_fix&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">تحديث حالة وثيقة</span></td>
+      <td>وثيقة #9</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;required&quot;} ← بعد: {&quot;status&quot;: &quot;preparing&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">تحديث حالة وثيقة</span></td>
+      <td>وثيقة #8</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;required&quot;} ← بعد: {&quot;status&quot;: &quot;preparing&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">تحديث حالة وثيقة</span></td>
+      <td>وثيقة #7</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;required&quot;} ← بعد: {&quot;status&quot;: &quot;submitted&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">تحديث حالة وثيقة</span></td>
+      <td>وثيقة #6</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;required&quot;} ← بعد: {&quot;status&quot;: &quot;submitted&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">تحديث حالة وثيقة</span></td>
+      <td>وثيقة #5</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;required&quot;} ← بعد: {&quot;status&quot;: &quot;submitted&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">تحديث حالة وثيقة</span></td>
+      <td>وثيقة #4</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;required&quot;} ← بعد: {&quot;status&quot;: &quot;submitted&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">تحديث حالة وثيقة</span></td>
+      <td>وثيقة #3</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;required&quot;} ← بعد: {&quot;status&quot;: &quot;accepted&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">تحديث حالة وثيقة</span></td>
+      <td>وثيقة #2</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;required&quot;} ← بعد: {&quot;status&quot;: &quot;accepted&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">تحديث حالة وثيقة</span></td>
+      <td>وثيقة #1</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;required&quot;} ← بعد: {&quot;status&quot;: &quot;accepted&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">إضافة قائمة وثائق المحافظ</span></td>
+      <td>سنة مالية #1</td>
+      <td><small>بعد: {&quot;created&quot;: 21}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">مشاركة دليل مع المحافظ</span></td>
+      <td>دليل #2</td>
+      <td><small>قبل: {&quot;shared_with_auditor&quot;: false} ← بعد: {&quot;shared_with_auditor&quot;: true}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">انتقال حالة ملاحظة</span></td>
+      <td>ملاحظة #4</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;under_verification&quot;} ← بعد: {&quot;status&quot;: &quot;closed&quot;, &quot;reason&quot;: &quot;&quot;, &quot;independence_exception&quot;: &quot;&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">مراجعة دليل</span></td>
+      <td>دليل #2</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;unreviewed&quot;} ← بعد: {&quot;status&quot;: &quot;accepted&quot;, &quot;self_review_exception&quot;: &quot;&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">انتقال حالة ملاحظة</span></td>
+      <td>ملاحظة #4</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;evidence_submitted&quot;} ← بعد: {&quot;status&quot;: &quot;under_verification&quot;, &quot;reason&quot;: &quot;&quot;, &quot;independence_exception&quot;: &quot;&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_oper</td>
+      <td><span class="badge">انتقال حالة ملاحظة</span></td>
+      <td>ملاحظة #4</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;in_progress&quot;} ← بعد: {&quot;status&quot;: &quot;evidence_submitted&quot;, &quot;reason&quot;: &quot;&quot;, &quot;independence_exception&quot;: &quot;&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_oper</td>
+      <td><span class="badge">رفع دليل</span></td>
+      <td>دليل #2</td>
+      <td><small>بعد: {&quot;status&quot;: &quot;unreviewed&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_oper</td>
+      <td><span class="badge">تحديث حالة إجراء</span></td>
+      <td>إجراء #2</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;open&quot;} ← بعد: {&quot;status&quot;: &quot;done&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_admin</td>
+      <td><span class="badge">انتقال حالة ملاحظة</span></td>
+      <td>ملاحظة #4</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;action_plan&quot;} ← بعد: {&quot;status&quot;: &quot;in_progress&quot;, &quot;reason&quot;: &quot;&quot;, &quot;independence_exception&quot;: &quot;&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">انتقال حالة ملاحظة</span></td>
+      <td>ملاحظة #4</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;approved&quot;} ← بعد: {&quot;status&quot;: &quot;action_plan&quot;, &quot;reason&quot;: &quot;&quot;, &quot;independence_exception&quot;: &quot;&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">إضافة إجراء</span></td>
+      <td>إجراء #2</td>
+      <td><small>بعد: {&quot;owner&quot;: 3}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_admin</td>
+      <td><span class="badge">انتقال حالة ملاحظة</span></td>
+      <td>ملاحظة #4</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;draft&quot;} ← بعد: {&quot;status&quot;: &quot;approved&quot;, &quot;reason&quot;: &quot;&quot;, &quot;independence_exception&quot;: &quot;&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">إنشاء ملاحظة</span></td>
+      <td>ملاحظة #4</td>
+      <td><small>بعد: {&quot;title&quot;: &quot;تحفظ سابق: غياب جرد المخزون&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_oper</td>
+      <td><span class="badge">رفع دليل</span></td>
+      <td>دليل #1</td>
+      <td><small>بعد: {&quot;status&quot;: &quot;unreviewed&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_oper</td>
+      <td><span class="badge">تحديث حالة إجراء</span></td>
+      <td>إجراء #1</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;open&quot;} ← بعد: {&quot;status&quot;: &quot;in_progress&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_admin</td>
+      <td><span class="badge">انتقال حالة ملاحظة</span></td>
+      <td>ملاحظة #3</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;action_plan&quot;} ← بعد: {&quot;status&quot;: &quot;in_progress&quot;, &quot;reason&quot;: &quot;&quot;, &quot;independence_exception&quot;: &quot;&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">انتقال حالة ملاحظة</span></td>
+      <td>ملاحظة #3</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;approved&quot;} ← بعد: {&quot;status&quot;: &quot;action_plan&quot;, &quot;reason&quot;: &quot;&quot;, &quot;independence_exception&quot;: &quot;&quot;}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_ctrl</td>
+      <td><span class="badge">إضافة إجراء</span></td>
+      <td>إجراء #1</td>
+      <td><small>بعد: {&quot;owner&quot;: 3}</small></td>
+    </tr>
+    
+    <tr>
+      <td>2026-11-24 02:20:25</td>
+      <td>bk_admin</td>
+      <td><span class="badge">انتقال حالة ملاحظة</span></td>
+      <td>ملاحظة #3</td>
+      <td><small>قبل: {&quot;status&quot;: &quot;draft&quot;} ← بعد: {&quot;status&quot;: &quot;approved&quot;, &quot;reason&quot;: &quot;&quot;, &quot;independence_exception&quot;: &quot;&quot;}</small></td>
+    </tr>
+    
+  </table>
+  <p style="margin-top:8px">
+    
+    صفحة 1 من 2
+    <a href="#" data-off="نسخة عرض: الصفحات التالية من هذه القائمة غير منسوخة.">التالي →</a>
+  </p>
+  
+</div>
+
+</main>
+<div id="gd-toast" role="status"></div></body>
+</html>

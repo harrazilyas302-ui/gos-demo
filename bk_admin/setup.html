@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>إعداد المؤسسة</title>
+<style>
+  body{font-family:Tahoma,Arial,sans-serif;margin:0;background:#f5f6f8;color:#1c1f24}
+  header{background:#1f3a5f;color:#fff;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  header a,header button{color:#fff;background:none;border:0;cursor:pointer;font:inherit;text-decoration:underline}
+  nav a{margin-inline-end:14px}
+  main{max-width:1100px;margin:24px auto;padding:0 16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .card{background:#fff;border:1px solid #d9dde3;border-radius:8px;padding:16px;margin-bottom:16px}
+  .card h2,.card h3{margin:0 0 8px;font-size:1rem;color:#41506b}
+  .big{font-size:1.8rem;font-weight:bold}
+  .empty{color:#6b7280}
+  .note{font-size:.85rem;color:#8a5a00}
+  .badge{display:inline-block;padding:2px 8px;border-radius:4px;border:1px solid #888;margin:2px;font-size:.9rem}
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:start;padding:6px 8px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+  th{color:#41506b;font-size:.9rem}
+  input,select,textarea{font:inherit;padding:4px 6px;max-width:100%}
+  textarea{width:100%;min-height:60px}
+  label{display:block;margin:6px 0 2px;font-size:.9rem}
+  button.primary{background:#1f3a5f;color:#fff;border:0;border-radius:4px;padding:6px 14px;cursor:pointer}
+  .msg{padding:8px 12px;border-radius:6px;margin-bottom:10px;border:1px solid}
+  .msg.success{background:#e8f6ec;border-color:#7cc08e}
+  .msg.error{background:#fdecec;border-color:#e08a8a}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+  details summary{cursor:pointer;color:#1f3a5f}
+  .inline{display:inline}
+</style>
+<script>
+/* نسخة عرض: لا شيء يُرسَل إلى خادم */
+(function(){
+  function toast(msg){var t=document.getElementById('gd-toast');if(!t)return;t.textContent=msg;t.classList.add('on');
+    clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on')},2600);}
+  window.gdToast=toast;
+  HTMLFormElement.prototype.submit=function(){toast('نسخة عرض للتصفح: تغيير السنة والحفظ معطّلان هنا.');};
+  document.addEventListener('submit',function(e){e.preventDefault();toast('نسخة عرض للتصفح: الحفظ معطّل. في المنصة الحقيقية يُحفظ هذا ويُسجَّل في سجل النشاط.');},true);
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-off]');
+    if(a){e.preventDefault();toast(a.getAttribute('data-off'));}},true);
+})();
+</script><style>
+#gd-bar{position:sticky;top:0;z-index:1000;background:#f59e0b;color:#0f2a47;font:700 14px Tahoma,Arial,sans-serif;
+  padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));display:flex;gap:10px 18px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+#gd-bar a{color:#0f2a47}
+#gd-toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);opacity:0;transition:.25s;z-index:1001;
+  background:#0f2a47;color:#fff;font:600 15px Tahoma,Arial,sans-serif;padding:12px 20px;border-radius:10px;max-width:min(560px,calc(100vw - 32px));
+  box-shadow:0 10px 30px rgba(0,0,0,.3);text-align:center;pointer-events:none}
+#gd-toast.on{opacity:1;transform:translateX(-50%)}
+</style></head>
+<body><div id="gd-bar"><span>نسخة عرض تفاعلية · بيانات وهمية · أنت تتصفح بدور: المسيّر</span><a href="../index.html">تغيير الدور ↩</a></div>
+<header>
+  <strong>GOS — الرقابة الداخلية</strong>
+  
+  <nav>
+    <a href="home.html">اللوحة</a>
+    <a href="tasks.html">المهام (15)</a>
+    <a href="build.html">ابنِ منظومتك</a>
+    
+    <a href="setup.html">المؤسسة</a>
+    <a href="cycles.html">الدورات</a>
+    <a href="risks.html">المخاطر والضوابط</a>
+    <a href="tests.html">الاختبارات</a>
+    <a href="reviews.html">المراجعات</a>
+    
+    <a href="issues.html">الملاحظات</a>
+    <a href="pbc.html">وثائق المحافظ</a>
+    <a href="users.html">المستخدمون</a><a href="permissions.html">الصلاحيات</a><a href="activity.html">سجل النشاط</a>
+  </nav>
+  
+  
+  <span>
+    bk_admin (المسيّر (Admin))
+    <a href="../index.html">تغيير الدور</a>
+    
+  </span>
+</header>
+<main>
+  
+  
+<h1>إعداد المؤسسة والسنة المالية</h1>
+<div class="card">
+  <h2>بيانات المؤسسة</h2>
+  <form method="post"><input type="hidden" name="do" value="company">
+    <div class="row">
+      <div><label>التسمية</label><input name="name" value="[تجريبي] مخبزة الأمل" ></div>
+      <div><label>الشكل القانوني</label>
+        <select name="legal_form" ><option value="SPA" >SPA</option><option value="SARL" selected>SARL</option><option value="EURL" >EURL</option><option value="other" >أخرى</option></select></div>
+      <div><label>النشاط</label><input name="activity" value="مخبزة وحلويات" ></div>
+      <div><label>عدد العمال</label><input name="employees_count" type="number" min="0" value="12" ></div>
+      <div><label>NIF</label><input name="nif" value="" ></div>
+      <div><label>NIS</label><input name="nis" value="" ></div>
+      <div><label>RC</label><input name="rc" value="" ></div>
+    </div>
+    <p><button class="primary">حفظ</button></p>
+  </form>
+</div>
+<div class="card">
+  <h2>الإعدادات</h2>
+  <p class="note">قيم تحددها المؤسسة وليست معايير قانونية. الآجال الافتراضية (45 و15 يوماً) للعرض فقط وتحتاج تحققاً من النص الرسمي.</p>
+  <form method="post"><input type="hidden" name="do" value="settings">
+    <div class="row">
+      <div><label>إرسال الوثائق قبل الجمعية (أيام)</label><input name="pbc.docs_days_before_ag" type="number" min="1" max="365" value="45" ></div>
+      <div><label>تقرير المحافظ قبل الجمعية (أيام)</label><input name="pbc.report_days_before_ag" type="number" min="1" max="365" value="15" ></div>
+      <div><label><input type="checkbox" name="pbc.countdown_enabled" checked > العدّ التنازلي مفعّل</label></div>
+    </div>
+    <p>حالة الآجال: <span class="badge">تحتاج تحققاً من النص الرسمي</span></p>
+    
+    <label><input type="checkbox" name="verified_deadlines"> تحققتُ من النص الرسمي للأجلين</label>
+    <label>مصدر القاعدة (اختياري)</label><input name="deadline_source" style="width:100%" maxlength="300" placeholder="المرجع الذي تحققتَ منه">
+    
+    <div class="row" style="margin-top:10px">
+      <div><label>حد «المنخفض» (الدرجة ≤)</label><input name="risk.low_max" type="number" min="1" max="8" value="2" ></div>
+      <div><label>حد «المتوسط» (الدرجة ≤)</label><input name="risk.medium_max" type="number" min="2" max="8" value="4" ></div>
+      <div><label>حد تقبّل المخاطر (0 = غير مفعّل)</label><input name="risk.appetite_max" type="number" min="0" max="9" value="4" ></div>
+      <div><label>فترة المراجعة الإدارية (أيام)</label><input name="review.interval_days" type="number" min="1" max="365" value="30" ></div>
+    </div>
+    <h3 style="margin-top:12px">الأتمتة الذكية</h3>
+    <p class="note">تعمل للمؤسسات التي بنت منظومتها بمعالج «ابنِ منظومتك». هذه الإجراءات قابلة للتراجع ومسجّلة باسم «النظام».</p>
+    <div class="row">
+      <div><label><input type="checkbox" name="automation.auto_schedule" checked > جدولة اختبار الضوابط آلياً</label></div>
+      <div><label><input type="checkbox" name="automation.auto_draft_issues" checked > مسودات ملاحظات آلية من الاقتراحات</label></div>
+    </div>
+    <div class="row">
+      <div><label>دورية الاختبار الافتراضية (أيام)</label><input name="plan.default_test_interval_days" type="number" min="7" max="730" value="180" ></div>
+      <div><label>تذكير مراجعة الدليل بعد (أيام)</label><input name="automation.evidence_review_days" type="number" min="1" max="60" value="3" ></div>
+      <div><label>تصعيد الإجراء المتأخر بعد (أيام)</label><input name="automation.escalate_action_days" type="number" min="1" max="180" value="14" ></div>
+      <div><label>فاصل التحليل التلقائي (دقائق)</label><input name="automation.interval_minutes" type="number" min="5" max="1440" value="30" ></div>
+    </div>
+    <p><button class="primary">حفظ الإعدادات</button></p>
+  </form>
+</div>
+<div class="card">
+  <h2>السنوات المالية</h2>
+  
+  <table><tr><th>السنة</th><th>تاريخ الإقفال</th><th>الجمعية العامة المتوقعة</th><th>الحالة</th></tr>
+  <tr><td>2026</td><td>31 ديسمبر، 2026</td><td>2 يناير، 2027</td><td>مفتوحة</td></tr></table>
+  
+  <details style="margin-top:8px"><summary>إضافة سنة مالية</summary>
+    <form method="post"><input type="hidden" name="do" value="fy">
+      <div class="row">
+        <div><label>السنة</label><input name="year" type="number" required></div>
+        <div><label>تاريخ الإقفال</label><input name="closing_date" type="date" required></div>
+        <div><label>الجمعية العامة المتوقعة</label><input name="expected_ag_date" type="date"></div>
+      </div><p><button class="primary">إنشاء</button></p>
+    </form>
+  </details>
+</div>
+
+</main>
+<div id="gd-toast" role="status"></div></body>
+</html>
